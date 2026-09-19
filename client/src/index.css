@@ -43,39 +43,39 @@
 }
 
 :root {
-  --primary: #e9682b;
-  --primary-foreground: #fff8ef;
+  --primary: #d9080c;
+  --primary-foreground: #ffffff;
   --radius: 0.45rem;
-  --background: #f3efe8;
-  --foreground: #1d2021;
-  --card: #fbfaf7;
+  --background: #f0f1f1;
+  --foreground: #17191a;
+  --card: #ffffff;
   --card-foreground: #1d2021;
-  --popover: #fbfaf7;
+  --popover: #ffffff;
   --popover-foreground: #1d2021;
-  --secondary: #e5e0d7;
+  --secondary: #e0e2e2;
   --secondary-foreground: #464b4b;
-  --muted: #ebe7df;
+  --muted: #e7e9e9;
   --muted-foreground: #6d706d;
-  --accent: #e9682b;
-  --accent-foreground: #fff8ef;
+  --accent: #d9080c;
+  --accent-foreground: #ffffff;
   --destructive: #bc3d31;
-  --destructive-foreground: #fff8ef;
-  --border: #d9d3c9;
-  --input: #d9d3c9;
-  --ring: #e9682b;
-  --chart-1: #e9682b;
+  --destructive-foreground: #ffffff;
+  --border: #d2d5d5;
+  --input: #d2d5d5;
+  --ring: #d9080c;
+  --chart-1: #d9080c;
   --chart-2: #232727;
   --chart-3: #8c978f;
   --chart-4: #d7c5ae;
   --chart-5: #6b7270;
   --sidebar: #232727;
   --sidebar-foreground: #f7f2e9;
-  --sidebar-primary: #e9682b;
+  --sidebar-primary: #d9080c;
   --sidebar-primary-foreground: #fff8ef;
   --sidebar-accent: #343a39;
   --sidebar-accent-foreground: #f7f2e9;
   --sidebar-border: #454c4a;
-  --sidebar-ring: #e9682b;
+  --sidebar-ring: #d9080c;
 }
 
 * { box-sizing: border-box; }
@@ -106,7 +106,7 @@ button { font: inherit; }
 .site-header { position: absolute; z-index: 20; inset: 0 0 auto; color: #f8f4ec; border-bottom: 1px solid rgba(255,255,255,.17); }
 .site-header__inner { min-height: 86px; display: flex; align-items: center; gap: 2.3rem; }
 .brand { display: inline-flex; align-items: center; gap: .7rem; flex: 0 0 auto; }
-.brand__mark { display: grid; place-items: center; width: 42px; height: 42px; background: var(--accent); color: #fff8ef; font: 800 1.22rem/1 "Space Grotesk", sans-serif; letter-spacing: -.08em; border-radius: 50%; }
+.brand__logo { display: block; width: 178px; height: auto; padding: .18rem .45rem; border-radius: 2px; background: #ffffff; object-fit: contain; }
 .brand__text { display: grid; line-height: 1; gap: .28rem; }
 .brand__text strong { font: 700 1.2rem/1 "Space Grotesk", sans-serif; letter-spacing: -.05em; }
 .brand__text small { opacity: .57; font-size: .5rem; text-transform: uppercase; letter-spacing: .18em; }
@@ -135,8 +135,8 @@ button { font: inherit; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; margin-top: 2.25rem; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 48px; padding: .8rem 1.15rem; border: 1px solid transparent; border-radius: 2px; font-size: .76rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; transition: transform 160ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease; }
 .button:active { transform: scale(.97); }
-.button--accent { background: var(--accent); color: #fff8ef; box-shadow: 0 12px 28px rgba(233,104,43,.21); }
-.button--accent:hover { background: #f57a3b; transform: translateY(-2px); }
+.button--accent { background: var(--accent); color: #ffffff; box-shadow: 0 12px 28px rgba(217,8,12,.22); }
+.button--accent:hover { background: #ef1b20; transform: translateY(-2px); }
 .button--ghost { color: #fff8ef; border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); }
 .button--ghost:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.1); }
 .button--dark { background: #232727; color: #f7f2e9; }
@@ -213,7 +213,7 @@ button { font: inherit; }
 .vehicle-sales-section { background: #e7e1d8; }
 .vehicle-sales-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 7rem; align-items: center; }
 .vehicle-placeholder { position: relative; min-height: 330px; padding: 1.6rem; color: #f7f2e9; background: #343b39; overflow: hidden; }
-.vehicle-placeholder::before { position: absolute; top: 23%; right: -8%; width: 70%; height: 140%; border: 1px solid rgba(233,104,43,.45); border-radius: 50%; transform: rotate(-28deg); content: ""; }
+.vehicle-placeholder::before { position: absolute; top: 23%; right: -8%; width: 70%; height: 140%; border: 1px solid rgba(217,8,12,.5); border-radius: 50%; transform: rotate(-28deg); content: ""; }
 .vehicle-placeholder::after { position: absolute; right: -13%; bottom: -20%; width: 60%; height: 80%; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; transform: rotate(-28deg); content: ""; }
 .vehicle-placeholder__top { position: relative; z-index: 1; display: flex; justify-content: space-between; color: #a6ada8; font: 700 .62rem/1 "DM Mono", monospace; letter-spacing: .15em; }
 .vehicle-placeholder__mark { position: relative; z-index: 1; margin-top: 2.3rem; color: var(--accent); font: 700 clamp(6rem, 13vw, 10rem)/.8 "Space Grotesk", sans-serif; letter-spacing: -.14em; }
@@ -236,7 +236,7 @@ button { font: inherit; }
 
 .site-footer { color: #c4cbc4; background: #191c1c; }
 .site-footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; padding-top: 4.7rem; padding-bottom: 4.7rem; }
-.brand--footer .brand__mark { width: 39px; height: 39px; }
+.brand--footer .brand__logo { width: 178px; }
 .site-footer__brand > p { margin: 1.5rem 0 0; color: #858d87; font-size: .8rem; line-height: 1.55; }
 .site-footer__grid > div:not(.site-footer__brand) { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
 .footer-label { margin-bottom: .7rem; color: var(--accent); font: 700 .62rem/1 "DM Mono", monospace; letter-spacing: .17em; }
@@ -265,9 +265,7 @@ button { font: inherit; }
   .container { padding-left: 1.1rem; padding-right: 1.1rem; }
   .site-header { position: absolute; }
   .site-header__inner { min-height: 74px; gap: .8rem; }
-  .brand__mark { width: 36px; height: 36px; font-size: 1.05rem; }
-  .brand__text strong { font-size: 1.05rem; }
-  .brand__text small { font-size: .42rem; }
+  .brand__logo { width: 137px; padding: .14rem .32rem; }
   .header-phone { margin-left: auto; padding: .65rem .25rem; }
   .header-phone span { display: none; }
   .menu-toggle { display: block; }

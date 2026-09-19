@@ -146,11 +146,7 @@ export default function Home() {
       <header className="site-header" id="top">
         <div className="container site-header__inner">
           <a href="#top" className="brand" aria-label="K2 garage — úvod">
-            <span className="brand__mark">K2</span>
-            <span className="brand__text">
-              <strong>garage</strong>
-              <small>service &amp; vehicles</small>
-            </span>
+            <img className="brand__logo" src="/manus-storage/K2_GARAGE_LOGO_43efc1a6.webp" alt="K2 garage" />
           </a>
 
           <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
@@ -322,7 +318,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="container site-footer__grid">
-          <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><span className="brand__mark">K2</span><span className="brand__text"><strong>garage</strong><small>service &amp; vehicles</small></span></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
+          <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/manus-storage/K2_GARAGE_LOGO_43efc1a6.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
           <div><span className="footer-label">KONTAKT</span><a className="footer-phone" href={PHONE_HREF}>{PHONE}</a><a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a><p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p></div>
           <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#kontrola-vozu">Kontrola vozu</a><a href="#prodej">Prodej vozidel</a><a href="#dovoz">Dovoz vozidel</a></div>
           <div><span className="footer-label">FIRMA</span><p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p></div>
