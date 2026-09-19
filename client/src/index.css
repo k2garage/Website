@@ -489,3 +489,19 @@ h1, h2, h3, .vehicle-placeholder__mark, .vehicle-placeholder p {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+
+/* Shared floating header: compact logo and a consistent breathing space on every page. */
+.site-header{top:12px;left:50%;width:min(94%,1320px);border:1px solid rgba(255,255,255,.18);border-radius:20px;background:rgba(17,21,21,.78);box-shadow:0 14px 38px rgba(14,18,17,.18);transform:translateX(-50%)}
+.site-header--scrolled{top:14px;width:min(84%,1120px);border-radius:999px;background:rgba(25,29,28,.88)}
+.site-header__inner{min-height:76px;padding-right:1.15rem;padding-left:1.15rem}.site-header--scrolled .site-header__inner{min-height:60px}
+.brand__logo{width:150px}.site-header--scrolled .brand__logo{width:122px}
+
+/* Reservation CTA replaces the former inline service-request form. */
+.reservation-cta-section{padding:7.5rem 0;background:#f6f2eb}
+.reservation-cta-section__inner{max-width:820px;margin:0 auto;text-align:center}.reservation-cta-section__inner .section-kicker{justify-content:center}.reservation-cta-section__inner h2{margin:1.15rem 0;font-size:clamp(3.2rem,5.3vw,5.9rem);text-wrap:balance}.reservation-cta-section__inner p{max-width:590px;margin:0 auto 2rem;color:#626b65;line-height:1.75}.reservation-cta-section__inner .button{min-width:230px}
+
+/* Prepared Reservation route with the same shared chrome. */
+.reservation-page{min-height:100vh;background:#edf1ef}.reservation-hero{position:relative;display:flex;overflow:hidden;min-height:72vh;align-items:center;color:#f7f2e9;background:linear-gradient(120deg,#121817 0%,#1d2724 58%,#121716 100%)}.reservation-hero::before{position:absolute;inset:0;opacity:.15;background-image:linear-gradient(rgba(213,228,218,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(213,228,218,.2) 1px,transparent 1px);background-size:60px 60px;mask-image:linear-gradient(90deg,#000,transparent 78%);content:""}.reservation-hero__ring{position:absolute;right:-8%;bottom:-40%;width:min(66vw,900px);aspect-ratio:1;border:1px solid rgba(217,8,12,.38);border-radius:50%;box-shadow:0 0 0 72px rgba(217,8,12,.035),0 0 0 144px rgba(217,8,12,.025)}.reservation-hero__inner{position:relative;z-index:1;padding-top:8rem;padding-bottom:6rem}.reservation-hero h1{max-width:900px;margin:1.2rem 0 1.55rem;color:#fff8ef;font-size:clamp(4rem,8vw,8.3rem);text-wrap:balance}.reservation-hero p{max-width:590px;margin:0 0 2rem;color:rgba(247,242,233,.76);font-size:1.08rem;line-height:1.75}.reservation-hero__notice{display:flex;align-items:center;gap:.65rem;margin-top:1.5rem;color:rgba(247,242,233,.62);font:700 .76rem/1.4 var(--font-display);letter-spacing:.04em}.reservation-hero__notice svg{color:var(--accent)}
+
+@media(max-width:760px){.site-header{top:8px;width:calc(100% - 1rem);border-radius:16px}.site-header--scrolled{top:8px;width:calc(100% - 1.25rem);border-radius:999px}.site-header__inner{min-height:66px;padding-right:.75rem;padding-left:.75rem}.site-header--scrolled .site-header__inner{min-height:58px}.brand__logo{width:118px}.site-header--scrolled .brand__logo{width:100px}.site-header--menu-open{top:0!important;left:0!important;width:100%!important;border-radius:0!important;transform:none!important}.reservation-cta-section{padding:5rem 0}.reservation-cta-section__inner h2{font-size:clamp(3.1rem,15vw,4.8rem)}.reservation-cta-section__inner .button{width:100%}.reservation-hero{min-height:650px}.reservation-hero__inner{padding-top:7rem;padding-bottom:5rem}.reservation-hero h1{font-size:clamp(3.8rem,17vw,5.8rem)}.reservation-hero p{font-size:.98rem}.reservation-hero__notice{align-items:flex-start;font-size:.7rem}}

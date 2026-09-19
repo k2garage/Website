@@ -9,18 +9,15 @@ import {
   CircleCheck,
   Clock3,
   Gauge,
-  Instagram,
-  Menu,
-  MoveUpRight,
   Phone,
   Search,
   ShieldCheck,
   Sparkles,
   Wrench,
-  X,
 } from "lucide-react";
-import { toast } from "sonner";
 import FloatingActions from "@/components/FloatingActions";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -127,7 +124,6 @@ const importSteps = [
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isBooting, setIsBooting] = useState(true);
 
@@ -144,11 +140,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const header = document.querySelector<HTMLElement>(".site-header");
-    if (!header) return;
     let ticking = false;
     const updateHeader = () => {
-      header.classList.toggle("site-header--scrolled", window.scrollY > 36);
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0);
       ticking = false;
@@ -163,13 +156,6 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen || isBooting ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen, isBooting]);
 
   useEffect(() => {
     const revealItems = document.querySelectorAll<HTMLElement>(".reveal");
@@ -195,54 +181,14 @@ export default function Home() {
     setActiveSlide((index + slides.length) % slides.length);
   };
 
-  const closeMenu = () => setMenuOpen(false);
-
-  const showComingSoon = (page: string) => {
-    closeMenu();
-    toast(page + " připravujeme", {
-      description: "Samostatnou stránku doplníme v další fázi webu.",
-    });
-  };
-
-
   return (
-    <div className="site-shell">
+    <div className="site-shell" id="top">
       <div className={`page-loader ${isBooting ? "page-loader--active" : "page-loader--done"}`} aria-hidden={!isBooting}>
         <div className="page-loader__mark"><img src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /><span /></div>
         <div className="page-loader__meta"><span>Načítáme váš servis</span></div>
       </div>
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} aria-hidden="true" />
-      <header className={`site-header ${menuOpen ? "site-header--menu-open" : ""}`} id="top">
-        <div className="container site-header__inner">
-          <a href="#top" className="brand" aria-label="K2 garage — úvod">
-            <img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" />
-          </a>
-
-          <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
-            <a className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</a>
-            <a className="site-nav__link" href="#o-nas" onClick={closeMenu}>O nás</a>
-            <button className="site-nav__link" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button>
-            <a className="site-nav__link" href="#kontakt" onClick={closeMenu}>Kontakt</a>
-            <button className="site-nav__link site-nav__reservation" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace <ArrowRight size={15} /></button>
-            <div className="mobile-nav__extras">
-              <div className="mobile-nav__socials" aria-label="Sociální sítě">
-                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
-              </div>
-            </div>
-          </nav>
-
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-label={menuOpen ? "Zavřít menu" : "Otevřít menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </header>
+      <SiteHeader lockPage={isBooting} />
 
       <main>
         <section className="hero-carousel" aria-roledescription="carousel" aria-label="Hlavní nabídka K2 garage">
@@ -374,15 +320,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container site-footer__grid">
-          <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
-          <div><span className="footer-label">KONTAKT</span><a className="footer-phone" href={PHONE_HREF}>{PHONE}</a><a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a><p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p></div>
-          <div><span className="footer-label">NAVIGACE</span><a href="/sluzby">Služby</a><a href="#o-nas">O nás</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button><a href="#kontakt">Kontakt</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace</button><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
-          <div><span className="footer-label">FIRMA</span><p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p></div>
-        </div>
-        <div className="container site-footer__bottom"><span>K2 garage s.r.o.</span><span>Sídlo společnosti · dílna není na webu uvedena</span></div>
-      </footer>
+      <SiteFooter />
       <FloatingActions />
 
     </div>
