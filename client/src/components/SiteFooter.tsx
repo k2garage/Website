@@ -44,7 +44,7 @@ export default function SiteFooter() {
           <span className="footer-label">KONTAKT</span>
           <a href={PHONE_HREF}><Phone size={16} strokeWidth={1.8} /><span>{PHONE}</span></a>
           <a href="mailto:k2garage@seznam.cz"><Mail size={16} strokeWidth={1.8} /><span>k2garage@seznam.cz</span></a>
-          <p><House size={16} strokeWidth={1.8} /><span>Svépomoc III 2044/21<br />Přerov</span></p>
+          <p><House size={16} strokeWidth={1.8} /><span><strong>Pouze sídlo společnosti</strong><br />Svépomoc III 2044/21<br />Přerov</span></p>
           <p><Clock3 size={16} strokeWidth={1.8} /><span>Po–Pá 8:00–17:00<br />po telefonické domluvě</span></p>
         </address>
       </div>
