@@ -20,6 +20,7 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import FloatingActions from "@/components/FloatingActions";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -208,7 +209,7 @@ export default function Home() {
     <div className="site-shell">
       <div className={`page-loader ${isBooting ? "page-loader--active" : "page-loader--done"}`} aria-hidden={!isBooting}>
         <div className="page-loader__mark"><img src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /><span /></div>
-        <div className="page-loader__meta"><span>Načítáme váš servis</span><strong>K2 / 2026</strong></div>
+        <div className="page-loader__meta"><span>Načítáme váš servis</span></div>
       </div>
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} aria-hidden="true" />
       <header className={`site-header ${menuOpen ? "site-header--menu-open" : ""}`} id="top">
@@ -218,7 +219,7 @@ export default function Home() {
           </a>
 
           <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
-            <a className="site-nav__link" href="#sluzby" onClick={closeMenu}>Služby</a>
+            <a className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</a>
             <a className="site-nav__link" href="#o-nas" onClick={closeMenu}>O nás</a>
             <button className="site-nav__link" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button>
             <a className="site-nav__link" href="#kontakt" onClick={closeMenu}>Kontakt</a>
@@ -269,33 +270,12 @@ export default function Home() {
                       </a>
                     </div>
                   </div>
-                  <div className="hero-slide__meta">
-                    <span>{String(activeSlide + 1).padStart(2, "0")} / 03</span>
-                    <span className="hero-slide__line" />
-                    <span> Přerov · ČR</span>
-                  </div>
-                  <div className="hero-slide__status"><span /> Po telefonické domluvě</div>
                 </div>
               </article>
             ))}
           </div>
 
           <div className="container hero-carousel__controls">
-            <div className="hero-carousel__dots" role="tablist" aria-label="Výběr slidu">
-              {slides.map((item, index) => (
-                <button
-                  key={item.eyebrow}
-                  type="button"
-                  className={`hero-dot ${index === activeSlide ? "hero-dot--active" : ""}`}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`Zobrazit slide ${index + 1}`}
-                  aria-selected={index === activeSlide}
-                  role="tab"
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                </button>
-              ))}
-            </div>
             <div className="hero-carousel__arrows">
               <button type="button" onClick={() => goToSlide(activeSlide - 1)} aria-label="Předchozí slide"><ChevronLeft size={19} /></button>
               <button type="button" onClick={() => goToSlide(activeSlide + 1)} aria-label="Další slide"><ChevronRight size={19} /></button>
@@ -306,7 +286,7 @@ export default function Home() {
         <div className="service-ticker" aria-label="Hlavní služby K2 garage">
           <div className="service-ticker__track">
             {["Autoservis", "Pneuservis", "Motoservis", "Detailing", "Kontrola vozu", "Dovoz vozidel", "Autoservis", "Pneuservis", "Motoservis", "Detailing", "Kontrola vozu", "Dovoz vozidel"].map((label, index) => (
-              <span key={`${label}-${index}`}><i />{label}</span>
+              <span key={`${label}-${index}`}>{label}</span>
             ))}
           </div>
         </div>
@@ -314,11 +294,11 @@ export default function Home() {
         <section className="intro-section section-pad reveal" id="o-nas">
           <div className="container intro-grid">
             <div className="intro-copy">
-              <span className="eyebrow">B03 / K2 garage</span>
+              <span className="eyebrow">K2 garage</span>
               <h2>Servis, na který se můžete obrátit.</h2>
               <p className="lead">K2 garage s.r.o. se stará o automobily i motocykly. Nabízíme servis, pneuservis, motoservis, detailing a další služby spojené s péčí o vůz.</p>
               <p>Pomůžeme také s výběrem automobilu. Vybraný vůz můžeme prověřit před koupí, ověřit jeho dostupné informace nebo zajistit jeho dovoz z ČR a okolních zemí.</p>
-              <a className="text-link" href="#sluzby">Prozkoumat služby <ArrowRight size={17} /></a>
+              <a className="text-link" href="/sluzby">Prozkoumat služby <ArrowRight size={17} /></a>
             </div>
             <div className="intro-highlights">
               <div className="intro-highlight"><span className="intro-highlight__icon"><Wrench size={18} /></span><div><strong>Automobily i motocykly</strong><span>Široká škála prací podle konkrétního stroje.</span></div></div>
@@ -331,10 +311,9 @@ export default function Home() {
         <section className="pre-purchase-section reveal" id="kontrola-vozu">
           <div className="pre-purchase-section__media">
             <img src="/assets/k2-hero-inspection.webp" alt="Technik kontroluje automobil před koupí" />
-            <span className="image-stamp">K2 / CHECK</span>
           </div>
           <div className="pre-purchase-section__content">
-            <span className="eyebrow eyebrow--accent">B04 / Kontrola vozu</span>
+            <span className="eyebrow eyebrow--accent">Kontrola vozu před koupí</span>
             <h2>Kupujete auto a nevíte, na co si dát pozor?</h2>
             <p className="lead">Technik za vybraným autem sám zajede, prohlédne ho a srozumitelně vám řekne, co zjistil.</p>
             <p>Nemusíte rozumět autům ani umět rozpoznat skryté závady. Kontrolu provedeme za vás a upozorníme na stav, který může ovlivnit vaše rozhodnutí i budoucí náklady na provoz.</p>
@@ -348,14 +327,13 @@ export default function Home() {
         <section className="services-section section-pad reveal" id="sluzby">
           <div className="container">
             <div className="section-heading section-heading--split">
-              <div><span className="eyebrow">B05 / Co umíme</span><h2>Naše služby</h2></div>
+              <div><span className="eyebrow">Co umíme</span><h2>Naše služby</h2></div>
               <p>Nabízíme širokou škálu prací pro automobily i motocykly. Pokud si nejste jistí, co přesně potřebujete, zavolejte nám a společně se domluvíme.</p>
             </div>
             <div className="services-grid">
               {services.map((service) => {
                 const Icon = service.icon;
-                return <a href={service.title === "Kontrola vozu" ? "#kontrola-vozu" : "#kontakt"} className="service-card reveal" key={service.number}>
-                  <span className="service-card__number">{service.number}</span>
+                return <a href="/sluzby" className="service-card reveal" key={service.number}>
                   <span className="service-card__icon"><Icon size={23} strokeWidth={1.7} /></span>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
@@ -368,9 +346,9 @@ export default function Home() {
 
         <section className="process-section section-pad reveal">
           <div className="container">
-            <div className="section-heading"><span className="eyebrow">B06 / Jednoduše</span><h2>Stačí zavolat a domluvíme se.</h2></div>
+            <div className="section-heading"><span className="eyebrow">Jednoduše</span><h2>Stačí zavolat a domluvíme se.</h2></div>
             <div className="process-grid">
-              {processSteps.map((step) => <div className="process-step" key={step.number}><span className="process-step__number">{step.number}</span><div className="process-step__line" /><h3>{step.title}</h3><p>{step.text}</p></div>)}
+              {processSteps.map((step) => <div className="process-step" key={step.number}><div className="process-step__line" /><h3>{step.title}</h3><p>{step.text}</p></div>)}
             </div>
             <div className="process-cta"><span>Potřebujete poradit, co bude nejlepší?</span><a className="text-link text-link--light" href={PHONE_HREF}>Zavolat na {PHONE} <ArrowRight size={17} /></a></div>
           </div>
@@ -378,21 +356,21 @@ export default function Home() {
 
         <section className="vehicle-sales-section section-pad reveal" id="prodej">
           <div className="container vehicle-sales-grid">
-            <div><span className="eyebrow">B07 / Prodej vozidel</span><h2>Nabídku připravujeme.</h2><p className="lead">Aktuálně nemáme v nabídce konkrétní vozidla. Jakmile budou vozy k dispozici, každý z nich bude mít vlastní stránku s fotografiemi, popisem a důležitými informacemi.</p><a className="button button--dark" href={PHONE_HREF}>Ptejte se na telefonu <Phone size={16} /></a></div>
-            <div className="vehicle-placeholder"><div className="vehicle-placeholder__top"><span>COMING SOON</span><span>2026</span></div><div className="vehicle-placeholder__mark">K2</div><p>Každý vůz<br />s vlastním příběhem.</p><ArrowDownRight className="vehicle-placeholder__arrow" size={30} /></div>
+            <div><span className="eyebrow">Prodej vozidel</span><h2>Nabídku připravujeme.</h2><p className="lead">Aktuálně nemáme v nabídce konkrétní vozidla. Jakmile budou vozy k dispozici, každý z nich bude mít vlastní stránku s fotografiemi, popisem a důležitými informacemi.</p><a className="button button--dark" href={PHONE_HREF}>Ptejte se na telefonu <Phone size={16} /></a></div>
+            <div className="vehicle-placeholder"><div className="vehicle-placeholder__top"><span>PŘIPRAVUJEME</span></div><div className="vehicle-placeholder__mark">K2</div><p>Každý vůz<br />s vlastním příběhem.</p><ArrowDownRight className="vehicle-placeholder__arrow" size={30} /></div>
           </div>
         </section>
 
         <section className="vehicle-import-section section-pad reveal" id="dovoz">
           <div className="container">
-            <div className="section-heading section-heading--split"><div><span className="eyebrow eyebrow--accent">B08 / Dovoz vozidel</span><h2>Hledáte konkrétní auto?</h2></div><p>Pomůžeme s výběrem vozidla v ČR i okolních zemích. Vůz vyhledáme, prověříme a domluvíme další postup včetně dovozu.</p></div>
-            <div className="import-steps">{importSteps.map((step, index) => <div className="import-step" key={step.number}><span className="import-step__number">{step.number}</span><div><h3>{step.title}</h3><p>{step.text}</p></div>{index < importSteps.length - 1 && <ArrowRight className="import-step__arrow" size={20} />}</div>)}</div>
+            <div className="section-heading section-heading--split"><div><span className="eyebrow eyebrow--accent">Dovoz vozidel</span><h2>Hledáte konkrétní auto?</h2></div><p>Pomůžeme s výběrem vozidla v ČR i okolních zemích. Vůz vyhledáme, prověříme a domluvíme další postup včetně dovozu.</p></div>
+            <div className="import-steps">{importSteps.map((step, index) => <div className="import-step" key={step.number}><div><h3>{step.title}</h3><p>{step.text}</p></div>{index < importSteps.length - 1 && <ArrowRight className="import-step__arrow" size={20} />}</div>)}</div>
             <div className="import-bottom"><span>ČR a okolní země</span><a className="button button--accent" href={PHONE_HREF}>Nezávazně se zeptat <ArrowRight size={17} /></a></div>
           </div>
         </section>
 
         <section className="contact-cta-section reveal" id="kontakt">
-          <div className="container contact-cta-section__inner"><div><span className="eyebrow eyebrow--accent">B09 / Kontakt</span><h2>Domluvme se na vašem voze.</h2><p>Potřebujete servis, kontrolu auta před koupí nebo radu s výběrem a dovozem vozidla? Zavolejte nám. První krok je jednoduchý.</p></div><a className="button button--accent button--large" href={PHONE_HREF}><Phone size={20} /> {PHONE}</a></div>
+          <div className="container contact-cta-section__inner"><div><span className="eyebrow eyebrow--accent">Kontakt</span><h2>Domluvme se na vašem voze.</h2><p>Potřebujete servis, kontrolu auta před koupí nebo radu s výběrem a dovozem vozidla? Zavolejte nám. První krok je jednoduchý.</p></div><a className="button button--accent button--large" href={PHONE_HREF}><Phone size={20} /> {PHONE}</a></div>
         </section>
       </main>
 
@@ -400,11 +378,12 @@ export default function Home() {
         <div className="container site-footer__grid">
           <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
           <div><span className="footer-label">KONTAKT</span><a className="footer-phone" href={PHONE_HREF}>{PHONE}</a><a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a><p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p></div>
-          <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#o-nas">O nás</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button><a href="#kontakt">Kontakt</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace</button><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
+          <div><span className="footer-label">NAVIGACE</span><a href="/sluzby">Služby</a><a href="#o-nas">O nás</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button><a href="#kontakt">Kontakt</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace</button><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
           <div><span className="footer-label">FIRMA</span><p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p></div>
         </div>
-        <div className="container site-footer__bottom"><span>© 2026 K2 garage s.r.o.</span><span>Sídlo společnosti · dílna není na webu uvedena</span></div>
+        <div className="container site-footer__bottom"><span>K2 garage s.r.o.</span><span>Sídlo společnosti · dílna není na webu uvedena</span></div>
       </footer>
+      <FloatingActions />
 
     </div>
   );
