@@ -85,3 +85,11 @@ Do DNS administrace Websupportu přidejte následující **tři záznamy pro ode
 3. K2 garage obdrží e-mail s přehledem údajů a odkazy na fotografie.
 4. Zákazník uvidí potvrzení o přijetí poptávky.
 5. Neplatný soubor, překročení limitu nebo chybějící povinné pole zobrazí konkrétní opravitelnou chybu.
+
+## Stav konfigurace k 19. září 2026
+
+Doména `k2garage.cz` je v Resendu ověřena pro odesílání. Pro rezervační formulář byl vytvořen samostatný klíč s oprávněním **Sending access**, omezený pouze na tuto doménu; jeho hodnota je uložená jako tajná proměnná `RESEND_API_KEY` ve Vercelu pro prostředí Production, Preview a Development.
+
+Ve Vercelu existuje soukromý Blob Store `k2-garage-reservation-photos`, propojený s projektem `k2-garage`. Vercel automaticky přidal proměnné `BLOB_READ_WRITE_TOKEN`, `BLOB_STORE_ID` a `BLOB_WEBHOOK_PUBLIC_KEY` do všech tří prostředí. Fotografie proto mohou být ukládány neveřejně a následně připojeny k poptávce přes bezpečné odkazy.
+
+Klientská část formuláře už umí vybrat, validovat, zobrazit náhled a odebrat až pět fotografií ve formátech JPG, PNG a WEBP, každou do 8 MB. Chybí pouze serverová Vercel Function `/api/reservation`, která přijme formulář, vystaví prohlížeči krátkodobý token pro soukromý upload do Blob Store, validuje data a odešle e-mail prostřednictvím Resendu. Tato funkce musí běžet mimo klientský React kód, aby žádný tajný klíč nebyl dostupný návštěvníkům webu.
