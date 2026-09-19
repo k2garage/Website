@@ -11,7 +11,7 @@ import {
   Phone,
   Send,
 } from "lucide-react";
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -77,6 +77,14 @@ function FieldLabel({ children, htmlFor, optional = false }: { children: string;
 export default function Reservation() {
   const [form, setForm] = useState<ReservationForm>(initialForm);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const requestedService = new URLSearchParams(window.location.search).get("sluzba");
+    const matchingService = serviceOptions.find((option) => option.value === requestedService);
+    if (matchingService) {
+      setForm((previous) => ({ ...previous, service: matchingService.value }));
+    }
+  }, []);
 
   const selectedService = serviceOptions.find((option) => option.value === form.service);
 

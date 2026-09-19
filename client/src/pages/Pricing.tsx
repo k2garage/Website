@@ -14,6 +14,7 @@ import {
   Sparkles,
   Wrench,
 } from "lucide-react";
+import { Link } from "wouter";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -22,6 +23,7 @@ const packages = [
   {
     icon: Gauge,
     title: "Sezónní kontrola",
+    service: "autoservis",
     price: "od 990 Kč",
     description: "Základní prověření vozu před delší cestou nebo změnou sezóny.",
     points: ["Vizuální kontrola důležitých částí", "Kontrola provozních kapalin", "Doporučení dalšího postupu"],
@@ -30,6 +32,7 @@ const packages = [
   {
     icon: SearchCheck,
     title: "Kontrola vozu před koupí",
+    service: "kontrola",
     price: "od 3 490 Kč",
     featured: true,
     description: "Technik přijede k vybranému vozu a srozumitelně vysvětlí, co našel.",
@@ -39,6 +42,7 @@ const packages = [
   {
     icon: Sparkles,
     title: "Detailing interiéru",
+    service: "detailing",
     price: "od 2 490 Kč",
     description: "Důkladná péče pro čistší interiér a lepší pocit z každé jízdy.",
     points: ["Hloubkové čištění interiéru", "Péče podle stavu vozu", "Individuální rozsah práce"],
@@ -160,6 +164,7 @@ export default function Pricing() {
                       <summary className={`flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-[var(--font-display)] text-[.78rem] font-black uppercase tracking-[.055em] ${pack.featured ? "text-[#fff8ef]" : "text-[#1d2522]"}`}><span>Detail balíčku</span><ChevronDown className="shrink-0 text-[#d9080c] transition-transform duration-200 group-open:rotate-180" size={17} /></summary>
                       <ul className={`grid gap-2 border-t px-4 py-3 text-[.76rem] leading-5 ${pack.featured ? "border-white/12 text-[#f7f2e9]/72" : "border-[#dce2de] text-[#58615c]"}`}>{pack.details.map((detail) => <li className="flex gap-2" key={detail}><Check className="mt-0.5 shrink-0 text-[#d9080c]" size={14} strokeWidth={2.5} />{detail}</li>)}</ul>
                     </details>
+                    <Link className={`mb-5 inline-flex items-center gap-2 self-start font-[var(--font-display)] text-[.76rem] font-black uppercase tracking-[.055em] transition-all duration-200 hover:gap-3 ${pack.featured ? "text-[#fff8ef] hover:text-[#ff8c8f]" : "text-[#1d2522] hover:text-[#d9080c]"}`} href={`/rezervace?sluzba=${pack.service}`}>Vybrat tento balíček <ArrowRight size={16} /></Link>
                     <div className={`mt-auto border-t pt-5 ${pack.featured ? "border-white/14" : "border-[#dce2de]"}`}><span className="font-mono text-[.7rem] font-bold uppercase tracking-[.1em] text-[#d9080c]">Cena</span><strong className="mt-1 block font-[var(--font-display)] text-[2rem] font-black tracking-[-.045em]">{pack.price}</strong></div>
                   </article>
                 );
