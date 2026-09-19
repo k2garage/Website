@@ -34,7 +34,7 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
         <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
           <div className="site-nav__core">
             <Link className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</Link>
-            <a className="site-nav__link" href="/#o-nas" onClick={closeMenu}>O nás</a>
+            <Link className="site-nav__link" href="/o-nas" onClick={closeMenu}>O nás</Link>
             <Link className="site-nav__link" href="/cenik" onClick={closeMenu}>Ceník</Link>
             <Link className="site-nav__link" href="/kontakt" onClick={closeMenu}>Kontakt</Link>
           </div>

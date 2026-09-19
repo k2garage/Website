@@ -6,6 +6,7 @@ import {
   BadgeCheck,
   CarFront,
   Check,
+  ChevronDown,
   Gauge,
   Phone,
   SearchCheck,
@@ -24,6 +25,7 @@ const packages = [
     price: "od 990 Kč",
     description: "Základní prověření vozu před delší cestou nebo změnou sezóny.",
     points: ["Vizuální kontrola důležitých částí", "Kontrola provozních kapalin", "Doporučení dalšího postupu"],
+    details: ["Kontrola pneumatik, brzd a základních provozních kapalin", "Vizuální kontrola podvozku a osvětlení", "Shrnutí zjištění a doporučení priorit"],
   },
   {
     icon: SearchCheck,
@@ -32,6 +34,7 @@ const packages = [
     featured: true,
     description: "Technik přijede k vybranému vozu a srozumitelně vysvětlí, co našel.",
     points: ["Kontrola konkrétního vozu", "Závady a riziková místa", "Jasné doporučení před koupí"],
+    details: ["Prohlídka exteriéru, interiéru a dostupných funkčních prvků", "Kontrola zjevných závad, stop po opravách a rizikových míst", "Vyhodnocení nálezu srozumitelně pro kupujícího"],
   },
   {
     icon: Sparkles,
@@ -39,6 +42,7 @@ const packages = [
     price: "od 2 490 Kč",
     description: "Důkladná péče pro čistší interiér a lepší pocit z každé jízdy.",
     points: ["Hloubkové čištění interiéru", "Péče podle stavu vozu", "Individuální rozsah práce"],
+    details: ["Vysátí a hloubkové čištění dostupných povrchů", "Ošetření plastových a textilních částí podle jejich stavu", "Rozsah předem upravíme podle velikosti a znečištění vozu"],
   },
 ];
 
@@ -152,6 +156,10 @@ export default function Pricing() {
                     <ul className={`my-6 grid gap-2.5 p-0 text-[.78rem] leading-5 ${pack.featured ? "text-[#f7f2e9]/78" : "text-[#414a46]"}`}>
                       {pack.points.map((point) => <li key={point} className="flex gap-2"><Check className="mt-0.5 shrink-0 text-[#d9080c]" size={15} strokeWidth={2.5} />{point}</li>)}
                     </ul>
+                    <details className={`group mb-6 rounded-xl border ${pack.featured ? "border-white/14 bg-white/[.04]" : "border-[#dce2de] bg-white/55"}`}>
+                      <summary className={`flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-[var(--font-display)] text-[.78rem] font-black uppercase tracking-[.055em] ${pack.featured ? "text-[#fff8ef]" : "text-[#1d2522]"}`}><span>Detail balíčku</span><ChevronDown className="shrink-0 text-[#d9080c] transition-transform duration-200 group-open:rotate-180" size={17} /></summary>
+                      <ul className={`grid gap-2 border-t px-4 py-3 text-[.76rem] leading-5 ${pack.featured ? "border-white/12 text-[#f7f2e9]/72" : "border-[#dce2de] text-[#58615c]"}`}>{pack.details.map((detail) => <li className="flex gap-2" key={detail}><Check className="mt-0.5 shrink-0 text-[#d9080c]" size={14} strokeWidth={2.5} />{detail}</li>)}</ul>
+                    </details>
                     <div className={`mt-auto border-t pt-5 ${pack.featured ? "border-white/14" : "border-[#dce2de]"}`}><span className="font-mono text-[.7rem] font-bold uppercase tracking-[.1em] text-[#d9080c]">Cena</span><strong className="mt-1 block font-[var(--font-display)] text-[2rem] font-black tracking-[-.045em]">{pack.price}</strong></div>
                   </article>
                 );

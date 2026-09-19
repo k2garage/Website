@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import About from "./pages/About";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
@@ -16,6 +17,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/sluzby"} component={Services} />
+      <Route path={"/o-nas"} component={About} />
       <Route path={"/cenik"} component={Pricing} />
       <Route path={"/rezervace"} component={Reservation} />
       <Route path={"/kontakt"} component={Contact} />
