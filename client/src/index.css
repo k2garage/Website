@@ -175,3 +175,16 @@
 
 .hero-slide__content{margin-left:4rem}
 @media(max-width:760px){.hero-slide__content{margin-left:0}}
+
+
+/* Photo-led hero: the real vehicle is the visual anchor; the interactive parts remain lightweight overlays. */
+.hero-visual__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.52) saturate(.82) contrast(1.06);transform:scale(1.045) translate3d(calc(var(--parallax-x,0px)*.025),calc(var(--parallax-y,0px)*.025),0);transition:transform 700ms var(--ease-out),filter 500ms ease}
+.hero-visual::after{background:linear-gradient(90deg,rgba(8,12,11,.94),rgba(8,12,11,.72) 39%,rgba(8,12,11,.2) 82%),linear-gradient(0deg,rgba(8,12,11,.65),transparent 58%)}
+.hero-visual__grid{opacity:.12}.hero-visual__word,.hero-visual__orb--two{opacity:.16}.hero-visual__car{border:0;background:transparent;box-shadow:none;transform:none;animation:none;pointer-events:none}.hero-visual__car::before,.hero-visual__car::after,.hero-visual__windshield{display:none}.hero-visual__wheel{border:1px solid transparent;background:transparent;box-shadow:none;pointer-events:auto}.hero-visual__wheel::after{display:none}.hero-visual__wheel:hover,.hero-visual__wheel:focus-visible{border-color:rgba(217,8,12,.75);background:radial-gradient(circle,transparent 34%,rgba(217,8,12,.22) 36%,transparent 62%);box-shadow:0 0 0 10px rgba(217,8,12,.12),0 0 38px rgba(217,8,12,.55)}.hero-visual__headlight{border:1px solid transparent;background:transparent;box-shadow:none;pointer-events:auto}.hero-visual__headlight:hover,.hero-visual__headlight:focus-visible{background:radial-gradient(ellipse,rgba(255,250,219,.92),rgba(255,250,219,.12) 55%,transparent 72%);border-color:rgba(255,250,219,.72)}
+@media(max-width:760px){.hero-visual__photo{object-position:60% center;filter:brightness(.5) saturate(.82) contrast(1.05)}.hero-visual__car{opacity:.75}}
+@media(prefers-reduced-motion:reduce){.hero-visual__photo{transform:scale(1.045)}}
+
+
+/* Final photo treatment: no abstract car drawing over the real vehicle. */
+.hero-visual::before{display:none}.hero-visual__grid,.hero-visual__word,.hero-visual__orb,.hero-visual__beam,.hero-visual__scanline{display:none!important}.hero-visual__photo{filter:brightness(.64) saturate(.9) contrast(1.04)}.hero-visual::after{background:linear-gradient(90deg,rgba(8,12,11,.95),rgba(8,12,11,.7) 38%,rgba(8,12,11,.12) 86%),linear-gradient(0deg,rgba(8,12,11,.55),transparent 62%)}.hero-visual__car{right:0;bottom:0;width:58vw;height:34vw}.hero-visual__headlight{top:38%;right:16%}.hero-visual__headlight--two{right:25%}.hero-visual__wheel{bottom:-5%}.hero-visual__wheel--one{right:3%}.hero-visual__wheel--two{right:42%}
+@media(max-width:760px){.hero-visual__photo{filter:brightness(.58) saturate(.86) contrast(1.04)}.hero-visual__car{right:-5%;bottom:0;width:112vw;height:58vw}.hero-visual__headlight{top:32%;right:17%}.hero-visual__headlight--two{right:30%}.hero-visual__wheel--one{right:3%}.hero-visual__wheel--two{right:45%}}

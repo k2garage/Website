@@ -28,6 +28,7 @@ const slides = [
     eyebrow: "Kontrola vozu před koupí",
     title: "Než koupíte auto, nechte ho zkontrolovat.",
     text: "Technik za vozem sám zajede, prohlédne jeho stav a řekne vám, co skutečně našel. Srozumitelně a bez zbytečných okolků.",
+    image: "/assets/k2-hero-inspection.webp",
     primary: "Objednat kontrolu vozu",
     primaryHref: "#kontrola-vozu",
     secondary: "Zavolat do servisu",
@@ -36,6 +37,7 @@ const slides = [
     eyebrow: "Autoservis · pneuservis · motoservis",
     title: "Když váš vůz potřebuje péči, víte, kam zavolat.",
     text: "Postaráme se o automobily i motocykly. Probereme s vámi problém a domluvíme další postup podle konkrétního vozu.",
+    image: "/assets/k2-hero-workshop.webp",
     primary: "Prohlédnout služby",
     primaryHref: "#sluzby",
     secondary: "Zavolat do servisu",
@@ -44,6 +46,7 @@ const slides = [
     eyebrow: "Dovoz vozidel z ČR i okolních zemí",
     title: "Hledáte auto? Najdeme, prověříme a dovezeme ho.",
     text: "Pomůžeme s výběrem vozidla v ČR i okolních zemích. Vůz vyhledáme, prověříme a domluvíme další postup.",
+    image: "/assets/k2-hero-import.webp",
     primary: "Nezávazně se zeptat",
     primaryHref: "#dovoz",
     secondary: "Zavolat do servisu",
@@ -255,6 +258,7 @@ export default function Home() {
                 aria-hidden={index !== activeSlide}
               >
                 <div className="hero-visual" style={{ "--parallax-x": `${parallax.x}px`, "--parallax-y": `${parallax.y}px` } as CSSProperties} aria-hidden="true">
+                  <img className="hero-visual__photo" src={item.image} alt="" />
                   <div className="hero-visual__grid" />
                   <span className="hero-visual__orb hero-visual__orb--one" />
                   <span className="hero-visual__orb hero-visual__orb--two" />
