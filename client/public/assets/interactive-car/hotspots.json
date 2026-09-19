@@ -1,0 +1,52 @@
+{
+  "canvas": {
+    "width": 2400,
+    "height": 1200,
+    "aspect_ratio": "2:1"
+  },
+  "hotspots": {
+    "hood": {
+      "id": "hood",
+      "tooltip": "Kapota: otevřít",
+      "x": 66.5,
+      "y": 41.0,
+      "width": 29.5,
+      "height": 18.0,
+      "states": ["closed", "open"]
+    },
+    "door": {
+      "id": "door",
+      "tooltip": "Dveře: otevřít",
+      "x": 65.5,
+      "y": 48.0,
+      "width": 14.0,
+      "height": 34.0,
+      "states": ["closed", "open"]
+    },
+    "headlight": {
+      "id": "headlight",
+      "tooltip": "Světlo: rozsvítit",
+      "x": 88.0,
+      "y": 52.5,
+      "width": 10.5,
+      "height": 12.0,
+      "states": ["off", "on"]
+    },
+    "wheel-front": {
+      "id": "wheel-front",
+      "tooltip": "Pneu: zvýraznit",
+      "x": 83.0,
+      "y": 69.5,
+      "width": 14.0,
+      "height": 26.0
+    },
+    "wheel-rear": {
+      "id": "wheel-rear",
+      "tooltip": "Pneu: zvýraznit",
+      "x": 35.0,
+      "y": 69.5,
+      "width": 14.0,
+      "height": 26.0
+    }
+  }
+}

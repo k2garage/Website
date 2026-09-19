@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1200" width="2400" height="1200" role="img" aria-labelledby="title desc">
+  <title id="title">K2 garage — interaktivní automobil</title>
+  <desc id="desc">Automobil z bočního a mírně předního úhlu s vrstvami pro kapotu, dveře a světlomet.</desc>
+  <defs>
+    <linearGradient id="garage" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111817"/><stop offset=".55" stop-color="#26312e"/><stop offset="1" stop-color="#0b0f0e"/></linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5b6965"/><stop offset=".42" stop-color="#242d2b"/><stop offset=".74" stop-color="#111716"/><stop offset="1" stop-color="#606d68"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a7c0ba" stop-opacity=".42"/><stop offset=".5" stop-color="#1a2726" stop-opacity=".82"/><stop offset="1" stop-color="#0d1212" stop-opacity=".95"/></linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#7f0508"/><stop offset=".5" stop-color="#ed151b"/><stop offset="1" stop-color="#8a060a"/></linearGradient>
+    <radialGradient id="lamp"><stop stop-color="#fffde8"/><stop offset=".18" stop-color="#fff7b2"/><stop offset=".55" stop-color="#e7bd48" stop-opacity=".48"/><stop offset="1" stop-color="#e7bd48" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="16"/></filter>
+    <style>
+      .state-open,.state-on{display:none}.state-closed,.state-off{display:inline}
+      #hood:hover .state-closed,#door:hover .state-closed,#headlight:hover .state-off{opacity:.78}
+    </style>
+  </defs>
+  <g id="background">
+    <rect width="2400" height="1200" fill="url(#garage)"/>
+    <path d="M0 270H2400M0 420H2400M240 0V720M590 0V720M2040 0V720" stroke="#aebdb7" stroke-opacity=".08" stroke-width="3"/>
+    <path d="M0 930H2400" stroke="#cfdbd5" stroke-opacity=".12" stroke-width="4"/>
+    <ellipse cx="1280" cy="1000" rx="920" ry="90" fill="#000" opacity=".56" filter="url(#shadow)"/>
+  </g>
+  <g id="car" data-tooltip="Automobil: interaktivní servisní body">
+    <path d="M368 833C418 742 521 676 698 633L1008 558C1122 531 1221 472 1316 357C1374 287 1460 248 1571 248H1788C1921 248 2013 306 2111 417L2234 558C2292 624 2322 696 2322 783V844H368Z" fill="url(#body)" stroke="#9baba4" stroke-opacity=".6" stroke-width="8"/>
+    <path d="M1094 554L1344 357C1392 320 1456 296 1530 296H1756C1831 296 1892 324 1944 376L2106 554Z" fill="url(#glass)" stroke="#b7c7c1" stroke-opacity=".45" stroke-width="6"/>
+    <path d="M1339 366L1282 554M1752 297L1770 553" stroke="#b7c7c1" stroke-opacity=".34" stroke-width="7"/>
+    <path d="M474 709H2128M684 634L679 837M1782 565L1782 838" stroke="#d5e0da" stroke-opacity=".18" stroke-width="6"/>
+    <path d="M385 798C512 760 654 753 806 766M1810 773C1990 751 2152 756 2302 787" stroke="#e2ece6" stroke-opacity=".28" stroke-width="7" fill="none"/>
+    <path d="M424 840H2270" stroke="url(#red)" stroke-width="20" opacity=".9"/>
+    <g id="hood" data-tooltip="Kapota: otevřít">
+      <g class="state-closed"><path d="M1184 558L1339 429L1858 429L2048 555Z" fill="url(#body)" stroke="#b8c7c1" stroke-opacity=".42" stroke-width="7"/><path d="M1220 553L1370 455L1818 455L1987 552" fill="none" stroke="#dbe5df" stroke-opacity=".18" stroke-width="5"/></g>
+      <g class="state-open"><path d="M1196 541L1398 206L1882 206L2048 541Z" fill="url(#body)" stroke="#d1ded8" stroke-opacity=".55" stroke-width="8"/><path d="M1260 523L1430 252L1838 252L1989 523" fill="none" stroke="#ecf2ed" stroke-opacity=".2" stroke-width="6"/></g>
+    </g>
+    <g id="door" data-tooltip="Dveře: otevřít">
+      <g class="state-closed"><path d="M1458 560L1467 397L1765 397L1782 770H1455Z" fill="#1d2826" fill-opacity=".7" stroke="#c2d0ca" stroke-opacity=".34" stroke-width="7"/><path d="M1512 603H1719" stroke="#dbe5df" stroke-opacity=".3" stroke-width="8"/></g>
+      <g class="state-open"><path d="M1452 562L1298 432L1340 302L1632 398L1764 397L1782 770H1455Z" fill="#263633" fill-opacity=".96" stroke="#d1ded8" stroke-opacity=".48" stroke-width="8"/><path d="M1335 432L1570 490" stroke="#dbe5df" stroke-opacity=".25" stroke-width="7"/></g>
+    </g>
+    <g id="headlight" data-tooltip="Světlo: rozsvítit">
+      <g class="state-off"><path d="M2042 570C2116 562 2186 576 2238 608L2186 685L2050 662Z" fill="#c4d1cb" fill-opacity=".34" stroke="#e7f0ea" stroke-opacity=".55" stroke-width="7"/></g>
+      <g class="state-on"><ellipse cx="2116" cy="628" rx="174" ry="116" fill="url(#lamp)" opacity=".82" filter="url(#glow)"/><path d="M2042 570C2116 562 2186 576 2238 608L2186 685L2050 662Z" fill="url(#lamp)" stroke="#fff9cf" stroke-width="8"/></g>
+    </g>
+    <g id="wheel-front"><circle cx="1992" cy="834" r="148" fill="#111615" stroke="#d7e0da" stroke-opacity=".48" stroke-width="9"/><circle cx="1992" cy="834" r="92" fill="#26312f" stroke="#d9080c" stroke-opacity=".75" stroke-width="9"/><circle cx="1992" cy="834" r="30" fill="#0b0e0d"/><path d="M1992 744V924M1902 834H2082" stroke="#d2ddd7" stroke-opacity=".45" stroke-width="8"/></g>
+    <g id="wheel-rear"><circle cx="840" cy="834" r="148" fill="#111615" stroke="#d7e0da" stroke-opacity=".48" stroke-width="9"/><circle cx="840" cy="834" r="92" fill="#26312f" stroke="#d9080c" stroke-opacity=".75" stroke-width="9"/><circle cx="840" cy="834" r="30" fill="#0b0e0d"/><path d="M840 744V924M750 834H930" stroke="#d2ddd7" stroke-opacity=".45" stroke-width="8"/></g>
+  </g>
+</svg>

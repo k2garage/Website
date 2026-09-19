@@ -1,4 +1,4 @@
-import { type CSSProperties, type MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -128,7 +128,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isBooting, setIsBooting] = useState(true);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsBooting(false), 900);
@@ -196,13 +195,6 @@ export default function Home() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  const handleHeroPointerMove = (event: MouseEvent<HTMLElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setParallax({
-      x: ((event.clientX - rect.left) / rect.width - 0.5) * 2,
-      y: ((event.clientY - rect.top) / rect.height - 0.5) * 2,
-    });
-  };
 
   return (
     <div className="site-shell">
@@ -249,7 +241,7 @@ export default function Home() {
       </header>
 
       <main>
-        <section className="hero-carousel" onMouseMove={handleHeroPointerMove} onMouseLeave={() => setParallax({ x: 0, y: 0 })} aria-roledescription="carousel" aria-label="Hlavní nabídka K2 garage">
+        <section className="hero-carousel" aria-roledescription="carousel" aria-label="Hlavní nabídka K2 garage">
           <div className="hero-carousel__slides">
             {slides.map((item, index) => (
               <article
@@ -257,23 +249,8 @@ export default function Home() {
                 key={item.eyebrow}
                 aria-hidden={index !== activeSlide}
               >
-                <div className="hero-visual" style={{ "--parallax-x": `${parallax.x}px`, "--parallax-y": `${parallax.y}px` } as CSSProperties} aria-hidden="true">
+                <div className="hero-visual" aria-hidden="true">
                   <img className="hero-visual__photo" src={item.image} alt="" />
-                  <div className="hero-visual__grid" />
-                  <span className="hero-visual__orb hero-visual__orb--one" />
-                  <span className="hero-visual__orb hero-visual__orb--two" />
-                  <span className="hero-visual__beam hero-visual__beam--one" />
-                  <span className="hero-visual__beam hero-visual__beam--two" />
-                  <div className="hero-visual__car">
-                    <span className="hero-visual__windshield" />
-                    <button className="hero-visual__headlight hero-visual__headlight--one" type="button" aria-label="Prohlédnout světlomet"><span className="hero-visual__part-label">SVĚTLO</span></button>
-                    <button className="hero-visual__headlight hero-visual__headlight--two" type="button" aria-label="Prohlédnout druhý světlomet"><span className="hero-visual__part-label">SVĚTLO</span></button>
-                    <button className="hero-visual__wheel hero-visual__wheel--one" type="button" aria-label="Prohlédnout pneumatiku"><span className="hero-visual__part-label">PNEU</span></button>
-                    <button className="hero-visual__wheel hero-visual__wheel--two" type="button" aria-label="Prohlédnout druhou pneumatiku"><span className="hero-visual__part-label">PNEU</span></button>
-                  </div>
-                  <button className="hero-visual__diagnostic" type="button" aria-label="Prohlédnout diagnostiku"><span>OBD / 02</span><i /><b>READY</b><em className="hero-visual__part-label">DIAGNOSTIKA</em></button>
-                  <span className="hero-visual__word">K2</span>
-                  <span className="hero-visual__scanline" />
                 </div>
                 <div className="container hero-slide__inner">
                   <div className="hero-slide__content">
