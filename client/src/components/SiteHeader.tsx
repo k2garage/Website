@@ -1,4 +1,4 @@
-import { ArrowRight, Instagram, Menu, X } from "lucide-react";
+import { ArrowRight, Instagram, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -53,7 +53,10 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
           </div>
         </nav>
 
-        <a className="header-reservation" href="/rezervace">Rezervace <ArrowRight size={15} /></a>
+        <div className="header-actions">
+          <a className="header-contact" href="/#kontakt"><Phone size={15} /> Kontaktovat</a>
+          <a className="header-reservation" href="/rezervace">Rezervace <ArrowRight size={15} /></a>
+        </div>
 
         <button
           className="menu-toggle"
