@@ -41,3 +41,54 @@
 @media(max-width:1023px){.container{padding-left:1.35rem;padding-right:1.35rem}.site-header__inner{gap:1.3rem}.site-nav{gap:.9rem;font-size:.64rem}.header-phone{font-size:.72rem}.hero-carousel,.hero-slide__inner{min-height:690px}.hero-slide h1{font-size:clamp(3rem,7vw,5.2rem)}.hero-slide__content{width:min(650px,82%)}.intro-grid,.vehicle-sales-grid{gap:3rem}.pre-purchase-section__content{padding:4.5rem 3rem}.pre-purchase-section__media{min-height:570px}.section-pad{padding:5.5rem 0}.trust-strip__inner{gap:1rem}.trust-strip__inner span{font-size:.62rem}}
 @media(max-width:760px){body{padding-bottom:0}.container{padding-left:1.1rem;padding-right:1.1rem}.site-header{position:fixed}.site-header--scrolled{top:10px;width:calc(100% - 2rem);border-radius:999px}.site-header__inner{min-height:74px;gap:.8rem}.brand__logo{width:137px}.site-header--scrolled .brand__logo{width:108px}.header-phone{margin-left:auto;padding:.65rem .25rem}.header-phone span{display:none}.menu-toggle{display:block;position:relative;z-index:22}.site-header .brand{position:relative;z-index:22}.site-nav{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:6rem 2rem 3rem;border:0;background:#17191a;box-shadow:none;opacity:0;pointer-events:none;transform:translateY(-12px);transition:opacity 220ms ease,transform 260ms var(--ease-out)}.site-nav--open{opacity:1;pointer-events:auto;transform:translateY(0)}.site-nav a{padding:.72rem 0;border-bottom:0;font:600 clamp(1.65rem,7vw,2.4rem)/1.05 "Space Grotesk",sans-serif;letter-spacing:-.045em;text-align:center;text-transform:none}.site-nav a::after{display:none}.mobile-nav__extras{display:flex;flex-direction:column;align-items:center;gap:1.35rem;margin-top:1.4rem}.mobile-nav__call{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.1rem!important;border:1px solid var(--accent)!important;color:#fff!important;background:var(--accent);font:800 .75rem/1 "DM Mono",monospace!important;letter-spacing:.06em;text-transform:uppercase!important}.mobile-nav__socials{display:flex;gap:.65rem}.mobile-nav__socials a{padding:0;border:1px solid #4b5350;color:#c4cbc4;font-size:0!important}.hero-carousel,.hero-slide__inner{min-height:720px}.hero-slide__image{object-position:62% center}.hero-slide__wash{background:linear-gradient(90deg,rgba(20,24,23,.91),rgba(20,24,23,.46)),linear-gradient(0deg,rgba(20,24,23,.62),transparent 65%)}.hero-slide__inner{padding-top:5rem}.hero-slide__content{width:100%;padding:1.45rem 1.2rem 1.55rem;border-radius:18px}.hero-slide h1{max-width:520px;margin-top:1rem;font-size:clamp(2.75rem,12vw,4.3rem)}.hero-slide p{font-size:.91rem}.hero-actions{align-items:stretch;flex-direction:column;max-width:315px}.hero-actions .button{width:100%}.hero-slide__meta{margin-bottom:5.3rem}.hero-slide__status{right:1.1rem;bottom:6.1rem;font-size:.53rem}.hero-carousel__controls{bottom:1.5rem}.hero-carousel__arrows{display:none}.trust-strip{margin:-18px 1.1rem 0}.trust-strip__inner{min-height:0;grid-template-columns:1fr 1fr;gap:1.1rem;padding:1.2rem 1rem;border-radius:18px}.trust-strip__inner>div:nth-child(3){display:none}.trust-strip__inner>a{grid-column:1/-1;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.12)}.section-pad{padding:5rem 0}.intro-grid,.section-heading--split,.vehicle-sales-grid{grid-template-columns:1fr;gap:2.3rem}.intro-copy h2,.section-heading h2,.vehicle-sales-section h2,.contact-cta-section h2{font-size:clamp(2.65rem,12vw,4.2rem)}.intro-highlights{padding:1.1rem}.pre-purchase-section{grid-template-columns:1fr}.pre-purchase-section__media{min-height:310px;max-height:410px}.pre-purchase-section__content{padding:4.2rem 1.1rem 4.7rem}.pre-purchase-section__content h2{font-size:clamp(2.6rem,12vw,4.2rem)}.benefit-list{grid-template-columns:1fr}.services-grid{grid-template-columns:1fr}.service-card{min-height:235px}.process-grid,.import-steps{grid-template-columns:1fr;gap:2.7rem;margin-top:3rem}.process-step__line{width:100%}.process-cta,.import-bottom,.contact-cta-section__inner{align-items:flex-start;flex-direction:column;gap:1.3rem}.process-cta{margin-top:3.6rem}.vehicle-placeholder{min-height:280px}.import-step{min-height:164px}.import-step__number{margin-bottom:2rem}.contact-cta-section__inner{padding-top:4.4rem;padding-bottom:4.4rem}.contact-cta-section__inner .button{width:100%}.site-footer__grid{grid-template-columns:1fr 1fr;gap:2.6rem 1.3rem;padding-top:3.6rem;padding-bottom:3.6rem}.site-footer__brand{grid-column:1/-1}.site-footer__bottom{align-items:flex-start;flex-direction:column;gap:.6rem;line-height:1.45}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+
+/* Mobile menu isolation: the header blur/transform must never contain the overlay. */
+@media (max-width: 760px) {
+  .site-header--menu-open {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    min-height: 100dvh !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #17191a !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  .site-header--menu-open .site-header__inner {
+    position: relative;
+    z-index: 22;
+  }
+
+  .site-header--menu-open .site-nav,
+  .site-header--menu-open .site-nav.site-nav--open {
+    position: fixed !important;
+    z-index: 21 !important;
+    inset: 0 !important;
+    display: flex !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 7.5rem 2rem 3rem !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #17191a !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader__mark span::after { animation: none; }
+}
