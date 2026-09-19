@@ -3,19 +3,23 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import {
   CalendarDays,
-  CarFront,
   CheckCircle2,
   ChevronRight,
+  CircleAlert,
   Clock3,
-  Mail,
+  ImagePlus,
+  LoaderCircle,
   Phone,
   Send,
+  Trash2,
 } from "lucide-react";
-import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from "react";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
-const RECIPIENT = "k2garage@seznam.cz";
+const MAX_PHOTOS = 5;
+const MAX_PHOTO_SIZE_BYTES = 8 * 1024 * 1024;
+const ACCEPTED_PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 type Service =
   | "autoservis"
@@ -42,6 +46,14 @@ type ReservationForm = {
   preferredDate: string;
   note: string;
 };
+
+type PhotoPreview = {
+  id: string;
+  file: File;
+  previewUrl: string;
+};
+
+type SubmissionState = "idle" | "sending" | "success" | "error";
 
 const serviceOptions: Array<{ value: Service; label: string; hint: string }> = [
   { value: "autoservis", label: "Autoservis", hint: "Běžný servis, diagnostika nebo konkrétní závada" },
@@ -74,9 +86,17 @@ function FieldLabel({ children, htmlFor, optional = false }: { children: string;
   return <label className="reservation-label" htmlFor={htmlFor}>{children}{optional && <span>Volitelné</span>}</label>;
 }
 
+function formatFileSize(bytes: number) {
+  return `${(bytes / (1024 * 1024)).toFixed(bytes >= 1024 * 1024 ? 1 : 2)} MB`;
+}
+
 export default function Reservation() {
   const [form, setForm] = useState<ReservationForm>(initialForm);
-  const [submitted, setSubmitted] = useState(false);
+  const [photos, setPhotos] = useState<PhotoPreview[]>([]);
+  const [photoError, setPhotoError] = useState("");
+  const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
+  const [submissionError, setSubmissionError] = useState("");
+  const photoUrls = useRef<string[]>([]);
 
   useEffect(() => {
     const requestedService = new URLSearchParams(window.location.search).get("sluzba");
@@ -86,38 +106,102 @@ export default function Reservation() {
     }
   }, []);
 
+  useEffect(() => () => {
+    photoUrls.current.forEach((url) => URL.revokeObjectURL(url));
+  }, []);
+
   const selectedService = serviceOptions.find((option) => option.value === form.service);
 
   const updateForm = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setSubmitted(false);
+    setSubmissionState("idle");
+    setSubmissionError("");
     setForm((previous) => ({ ...previous, [name]: value }));
   };
 
-  const submitReservation = (event: FormEvent<HTMLFormElement>) => {
+  const handlePhotoSelection = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = Array.from(event.target.files ?? []);
+    event.target.value = "";
+    setPhotoError("");
+    setSubmissionState("idle");
+    setSubmissionError("");
+
+    if (!selectedFiles.length) return;
+
+    const remainingSlots = MAX_PHOTOS - photos.length;
+    if (remainingSlots <= 0) {
+      setPhotoError(`Můžete přidat nejvýše ${MAX_PHOTOS} fotografií.`);
+      return;
+    }
+
+    const validFiles = selectedFiles.filter((file) => ACCEPTED_PHOTO_TYPES.includes(file.type) && file.size <= MAX_PHOTO_SIZE_BYTES);
+    const invalidFiles = selectedFiles.length - validFiles.length;
+    const distinctFiles = validFiles.filter((file) => !photos.some((photo) => photo.file.name === file.name && photo.file.lastModified === file.lastModified));
+    const filesToAdd = distinctFiles.slice(0, remainingSlots);
+
+    if (invalidFiles > 0) {
+      setPhotoError("Přidat lze pouze JPG, PNG nebo WEBP, každý soubor nejvýše 8 MB.");
+    } else if (distinctFiles.length > remainingSlots) {
+      setPhotoError(`Přidali jsme prvních ${remainingSlots} fotografií. Limit je ${MAX_PHOTOS} souborů.`);
+    }
+
+    const nextPhotos = filesToAdd.map((file) => {
+      const previewUrl = URL.createObjectURL(file);
+      photoUrls.current.push(previewUrl);
+      return { id: `${file.name}-${file.lastModified}-${crypto.randomUUID()}`, file, previewUrl };
+    });
+    setPhotos((previous) => [...previous, ...nextPhotos]);
+  };
+
+  const removePhoto = (id: string) => {
+    setSubmissionState("idle");
+    setPhotos((previous) => {
+      const removed = previous.find((photo) => photo.id === id);
+      if (removed) {
+        URL.revokeObjectURL(removed.previewUrl);
+        photoUrls.current = photoUrls.current.filter((url) => url !== removed.previewUrl);
+      }
+      return previous.filter((photo) => photo.id !== id);
+    });
+  };
+
+  const clearPhotos = () => {
+    photos.forEach((photo) => URL.revokeObjectURL(photo.previewUrl));
+    photoUrls.current = [];
+    setPhotos([]);
+  };
+
+  const submitReservation = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!form.service) return;
+    if (!form.service || submissionState === "sending") return;
 
-    const lines = [
-      `Jméno: ${form.firstName} ${form.lastName}`,
-      `E-mail: ${form.email}`,
-      `Telefon: ${form.phone}`,
-      `Služba: ${selectedService?.label ?? ""}`,
-      form.brand ? `Značka: ${form.brand}` : "",
-      form.model ? `Model: ${form.model}` : "",
-      form.year ? `Rok výroby: ${form.year}` : "",
-      form.vin ? `VIN: ${form.vin}` : "",
-      form.tyreSize ? `Rozměr pneumatik: ${form.tyreSize}` : "",
-      form.vehicleLink ? `Odkaz na vozidlo: ${form.vehicleLink}` : "",
-      form.country ? `Země původu: ${form.country}` : "",
-      form.preferredDate ? `Preferovaný termín: ${form.preferredDate}` : "",
-      form.note ? `Poznámka: ${form.note}` : "",
-    ].filter(Boolean);
+    setSubmissionState("sending");
+    setSubmissionError("");
 
-    const subject = encodeURIComponent(`Poptávka — ${selectedService?.label ?? "K2 garage"}`);
-    const body = encodeURIComponent(`Dobrý den,\n\nrád/a bych se objednal/a do K2 garage.\n\n${lines.join("\n")}\n\nDěkuji.`);
-    window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    const payload = new FormData();
+    Object.entries(form).forEach(([key, value]) => payload.append(key, value));
+    payload.set("serviceLabel", selectedService?.label ?? "");
+    photos.forEach((photo) => payload.append("photos", photo.file));
+
+    try {
+      const response = await fetch(import.meta.env.VITE_RESERVATION_ENDPOINT ?? "/api/reservation", {
+        method: "POST",
+        body: payload,
+        headers: { Accept: "application/json" },
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result?.message ?? "Poptávku se zatím nepodařilo odeslat.");
+      }
+
+      setSubmissionState("success");
+      setForm(initialForm);
+      clearPhotos();
+    } catch (error) {
+      setSubmissionState("error");
+      setSubmissionError(error instanceof Error ? error.message : "Poptávku se zatím nepodařilo odeslat.");
+    }
   };
 
   const needsVehicle = ["autoservis", "pneuservis", "motoservis", "detailing", "kontrola", "overeni"].includes(form.service);
@@ -132,7 +216,7 @@ export default function Reservation() {
           <div className="container reservation-hero__inner">
             <span className="section-kicker">Rezervace</span>
             <h1>Řekněte nám,<br />co potřebujete.</h1>
-            <p>Vyberte službu a doplňte základní informace. Připravíme si podklady, ozveme se vám a domluvíme konkrétní termín i další postup.</p>
+            <p>Vyberte službu, doplňte podklady a případně přidejte fotografie. Ozveme se vám zpět s návrhem termínu i dalšího postupu.</p>
             <div className="reservation-hero__notice"><Clock3 size={20} /><span>Po–Pá 8:00–17:00 · po telefonické domluvě</span></div>
           </div>
         </section>
@@ -141,8 +225,8 @@ export default function Reservation() {
           <div className="container reservation-form-layout">
             <aside className="reservation-form-aside">
               <span className="section-kicker">Jak to funguje</span>
-              <h2>Vyplníte.<br />Domluvíme.</h2>
-              <p>Formulář otevře předvyplněný e-mailový koncept na naši adresu. Díky tomu budete přesně vědět, co odesíláte, a my dostaneme všechny důležité informace najednou.</p>
+              <h2>Vyplníte.<br />Odešlete.</h2>
+              <p>Poptávka se odešle přímo z webu. Fotografie závady nebo vozu pomohou připravit přesnější podklady ještě před prvním telefonátem.</p>
               <div className="reservation-form-aside__points">
                 <span><CheckCircle2 size={17} /> Nezávazná poptávka</span>
                 <span><CheckCircle2 size={17} /> Potvrzení termínu telefonicky</span>
@@ -151,7 +235,8 @@ export default function Reservation() {
               <a className="reservation-form-aside__phone" href={PHONE_HREF}><Phone size={18} /> Raději zavolat: {PHONE}</a>
             </aside>
 
-            <form className="reservation-form" onSubmit={submitReservation}>
+            <form className="reservation-form" onSubmit={submitReservation} encType="multipart/form-data">
+              <input className="reservation-honeypot" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <div className="reservation-form__topline"><div><span className="section-kicker">Poptávka</span><h2>Rezervační formulář</h2></div><CalendarDays size={28} /></div>
 
               <fieldset className="reservation-fieldset">
@@ -198,11 +283,35 @@ export default function Reservation() {
                 <div className="reservation-form__grid"><div><FieldLabel htmlFor="note" optional>Co potřebujete vyřešit?</FieldLabel><textarea id="note" name="note" rows={5} value={form.note} onChange={updateForm} placeholder="Popište stručně závadu, požadavek nebo další důležité informace." /></div></div>
               </fieldset>}
 
+              <fieldset className="reservation-fieldset reservation-photos">
+                <legend>Fotografie k poptávce <span>Volitelné</span></legend>
+                <p>Pomohou nám s rychlejší orientací. Přidejte nejvýše {MAX_PHOTOS} souborů ve formátu JPG, PNG nebo WEBP; každý do 8 MB.</p>
+                <label className="reservation-photo-upload" htmlFor="photos">
+                  <ImagePlus size={22} />
+                  <span><strong>Přidat fotografie</strong><small>{photos.length}/{MAX_PHOTOS} vybráno</small></span>
+                  <input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={handlePhotoSelection} disabled={photos.length >= MAX_PHOTOS || submissionState === "sending"} />
+                </label>
+                {photoError && <p className="reservation-photo-error"><CircleAlert size={16} /> {photoError}</p>}
+                {photos.length > 0 && <div className="reservation-photo-list" aria-live="polite">
+                  {photos.map((photo) => <figure className="reservation-photo-preview" key={photo.id}>
+                    <img src={photo.previewUrl} alt={`Náhled souboru ${photo.file.name}`} />
+                    <figcaption><span title={photo.file.name}>{photo.file.name}</span><small>{formatFileSize(photo.file.size)}</small></figcaption>
+                    <button type="button" onClick={() => removePhoto(photo.id)} aria-label={`Odebrat soubor ${photo.file.name}`}><Trash2 size={15} /></button>
+                  </figure>)}
+                </div>}
+              </fieldset>
+
+              <label className="reservation-consent"><input type="checkbox" required /><span>Souhlasím se zpracováním uvedených údajů pro vyřízení své poptávky.</span></label>
+
               <div className="reservation-form__submit">
-                <button className="button button--accent button--large" type="submit"><Send size={18} /> Připravit e-mail s poptávkou</button>
-                <span><Mail size={16} /> Otevře se e-mailový koncept na {RECIPIENT}</span>
+                <button className="button button--accent button--large" type="submit" disabled={submissionState === "sending"}>
+                  {submissionState === "sending" ? <LoaderCircle className="reservation-submit-loader" size={18} /> : <Send size={18} />}
+                  {submissionState === "sending" ? "Odesíláme poptávku…" : "Odeslat poptávku"}
+                </button>
+                <span>Odešle se přímo z webu na K2 garage — bez otevření e-mailového klienta.</span>
               </div>
-              {submitted && <p className="reservation-form__success"><CheckCircle2 size={17} /> E-mailový koncept je připravený. Po jeho odeslání se vám ozveme zpět.</p>}
+              {submissionState === "success" && <p className="reservation-form__success"><CheckCircle2 size={17} /> Děkujeme. Poptávku jsme přijali a co nejdříve se vám ozveme.</p>}
+              {submissionState === "error" && <p className="reservation-form__error"><CircleAlert size={17} /> {submissionError} Pokud spěcháte, zavolejte na <a href={PHONE_HREF}>{PHONE}</a>.</p>}
             </form>
           </div>
         </section>
