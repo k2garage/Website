@@ -106,7 +106,7 @@ button { font: inherit; }
 .site-header { position: absolute; z-index: 20; inset: 0 0 auto; color: #f8f4ec; border-bottom: 1px solid rgba(255,255,255,.17); }
 .site-header__inner { min-height: 86px; display: flex; align-items: center; gap: 2.3rem; }
 .brand { display: inline-flex; align-items: center; gap: .7rem; flex: 0 0 auto; }
-.brand__logo { display: block; width: 178px; height: auto; padding: .18rem .45rem; border-radius: 2px; background: #ffffff; object-fit: contain; }
+.brand__logo { display: block; width: 178px; height: auto; padding: 0; border-radius: 0; background: transparent; object-fit: contain; }
 .brand__text { display: grid; line-height: 1; gap: .28rem; }
 .brand__text strong { font: 700 1.2rem/1 "Space Grotesk", sans-serif; letter-spacing: -.05em; }
 .brand__text small { opacity: .57; font-size: .5rem; text-transform: uppercase; letter-spacing: .18em; }
@@ -265,7 +265,7 @@ button { font: inherit; }
   .container { padding-left: 1.1rem; padding-right: 1.1rem; }
   .site-header { position: absolute; }
   .site-header__inner { min-height: 74px; gap: .8rem; }
-  .brand__logo { width: 137px; padding: .14rem .32rem; }
+  .brand__logo { width: 137px; }
   .header-phone { margin-left: auto; padding: .65rem .25rem; }
   .header-phone span { display: none; }
   .menu-toggle { display: block; }
