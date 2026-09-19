@@ -150,3 +150,12 @@
 @media(prefers-reduced-motion:reduce){.hero-visual__car,.hero-visual__headlight{animation:none}.hero-visual__grid,.hero-visual__orb,.hero-visual__beam,.hero-visual__word,.hero-visual__scanline,.hero-visual__car,.hero-visual__diagnostic{translate:0 0;transition:none}}
 
 @media(max-width:760px){.hero-visual__diagnostic{display:none}}
+
+
+/* Interactive service hotspots on the car illustration. */
+.hero-visual__car button{font:inherit;cursor:pointer}.hero-visual__headlight,.hero-visual__wheel,.hero-visual__diagnostic{appearance:none;-webkit-appearance:none}.hero-visual__part-label{position:absolute;z-index:4;display:block;opacity:0;pointer-events:none;color:#fff;font:700 .5rem/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transition:opacity 180ms ease,transform 260ms var(--ease-out)}
+.hero-visual__headlight .hero-visual__part-label{top:-1.8rem;right:0;transform:translateY(5px)}.hero-visual__headlight:hover,.hero-visual__headlight:focus-visible{z-index:5;background:rgba(255,250,219,.82);box-shadow:0 0 18px rgba(255,247,207,.95),0 0 54px rgba(255,247,207,.54);animation:none}.hero-visual__headlight:hover .hero-visual__part-label,.hero-visual__headlight:focus-visible .hero-visual__part-label{opacity:1;transform:translateY(0)}
+.hero-visual__wheel .hero-visual__part-label{top:50%;left:50%;transform:translate(-50%,18px)}.hero-visual__wheel:hover,.hero-visual__wheel:focus-visible{z-index:5;transform:translateY(-10px) scale(1.09);border-color:rgba(246,241,221,.78);box-shadow:0 0 0 11px rgba(10,14,13,.55),0 0 28px rgba(217,8,12,.6),0 0 0 3px rgba(217,8,12,.2)}.hero-visual__wheel:hover .hero-visual__part-label,.hero-visual__wheel:focus-visible .hero-visual__part-label{opacity:1;transform:translate(-50%,0)}
+.hero-visual__diagnostic{border:0;padding:0;background:transparent}.hero-visual__diagnostic .hero-visual__part-label{right:0;bottom:-1.55rem;transform:translateY(-4px)}.hero-visual__diagnostic:hover,.hero-visual__diagnostic:focus-visible{color:#fff;transform:translate(0,0) scale(1.04)}.hero-visual__diagnostic:hover .hero-visual__part-label,.hero-visual__diagnostic:focus-visible .hero-visual__part-label{opacity:1;transform:translateY(0)}
+@media(max-width:760px){.hero-visual__car button{pointer-events:none}.hero-visual__part-label{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-visual__headlight,.hero-visual__wheel,.hero-visual__diagnostic{transition:none}}

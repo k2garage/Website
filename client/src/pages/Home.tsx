@@ -262,12 +262,12 @@ export default function Home() {
                   <span className="hero-visual__beam hero-visual__beam--two" />
                   <div className="hero-visual__car">
                     <span className="hero-visual__windshield" />
-                    <span className="hero-visual__headlight hero-visual__headlight--one" />
-                    <span className="hero-visual__headlight hero-visual__headlight--two" />
-                    <span className="hero-visual__wheel hero-visual__wheel--one" />
-                    <span className="hero-visual__wheel hero-visual__wheel--two" />
+                    <button className="hero-visual__headlight hero-visual__headlight--one" type="button" aria-label="Prohlédnout světlomet"><span className="hero-visual__part-label">SVĚTLO</span></button>
+                    <button className="hero-visual__headlight hero-visual__headlight--two" type="button" aria-label="Prohlédnout druhý světlomet"><span className="hero-visual__part-label">SVĚTLO</span></button>
+                    <button className="hero-visual__wheel hero-visual__wheel--one" type="button" aria-label="Prohlédnout pneumatiku"><span className="hero-visual__part-label">PNEU</span></button>
+                    <button className="hero-visual__wheel hero-visual__wheel--two" type="button" aria-label="Prohlédnout druhou pneumatiku"><span className="hero-visual__part-label">PNEU</span></button>
                   </div>
-                  <div className="hero-visual__diagnostic"><span>OBD / 02</span><i /><b>READY</b></div>
+                  <button className="hero-visual__diagnostic" type="button" aria-label="Prohlédnout diagnostiku"><span>OBD / 02</span><i /><b>READY</b><em className="hero-visual__part-label">DIAGNOSTIKA</em></button>
                   <span className="hero-visual__word">K2</span>
                   <span className="hero-visual__scanline" />
                 </div>
