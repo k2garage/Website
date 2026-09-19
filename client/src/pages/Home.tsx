@@ -29,7 +29,7 @@ const slides = [
     eyebrow: "Kontrola vozu před koupí",
     title: "Než koupíte auto, nechte ho zkontrolovat.",
     text: "Technik za vozem sám zajede, prohlédne jeho stav a řekne vám, co skutečně našel. Srozumitelně a bez zbytečných okolků.",
-    image: "/manus-storage/k2-hero-inspection_4be93f68.jpg",
+    image: "/assets/k2-hero-inspection.webp",
     primary: "Objednat kontrolu vozu",
     primaryHref: "#kontrola-vozu",
     secondary: "Zavolat do servisu",
@@ -38,7 +38,7 @@ const slides = [
     eyebrow: "Autoservis · pneuservis · motoservis",
     title: "Když váš vůz potřebuje péči, víte, kam zavolat.",
     text: "Postaráme se o automobily i motocykly. Probereme s vámi problém a domluvíme další postup podle konkrétního vozu.",
-    image: "/manus-storage/k2-hero-workshop_b3106851.jpg",
+    image: "/assets/k2-hero-workshop.webp",
     primary: "Prohlédnout služby",
     primaryHref: "#sluzby",
     secondary: "Zavolat do servisu",
@@ -47,7 +47,7 @@ const slides = [
     eyebrow: "Dovoz vozidel z ČR i okolních zemí",
     title: "Hledáte auto? Najdeme, prověříme a dovezeme ho.",
     text: "Pomůžeme s výběrem vozidla v ČR i okolních zemích. Vůz vyhledáme, prověříme a domluvíme další postup.",
-    image: "/manus-storage/k2-hero-import_77c883c5.jpg",
+    image: "/assets/k2-hero-import.webp",
     primary: "Nezávazně se zeptat",
     primaryHref: "#dovoz",
     secondary: "Zavolat do servisu",
@@ -196,7 +196,7 @@ export default function Home() {
       <header className="site-header" id="top">
         <div className="container site-header__inner">
           <a href="#top" className="brand" aria-label="K2 garage — úvod">
-            <img className="brand__logo" src="/manus-storage/K2-GARAGE-mlecna_87e75db5.webp" alt="K2 garage" />
+            <img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" />
           </a>
 
           <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
@@ -317,7 +317,7 @@ export default function Home() {
 
         <section className="pre-purchase-section reveal" id="kontrola-vozu">
           <div className="pre-purchase-section__media">
-            <img src="/manus-storage/k2-hero-inspection_4be93f68.jpg" alt="Technik kontroluje automobil před koupí" />
+            <img src="/assets/k2-hero-inspection.webp" alt="Technik kontroluje automobil před koupí" />
             <span className="image-stamp">K2 / CHECK</span>
           </div>
           <div className="pre-purchase-section__content">
@@ -385,7 +385,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="container site-footer__grid">
-          <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/manus-storage/K2-GARAGE-mlecna_87e75db5.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
+          <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
           <div><span className="footer-label">KONTAKT</span><a className="footer-phone" href={PHONE_HREF}>{PHONE}</a><a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a><p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p></div>
           <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#kontrola-vozu">Kontrola vozu</a><a href="#prodej">Prodej vozidel</a><a href="#dovoz">Dovoz vozidel</a><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
           <div><span className="footer-label">FIRMA</span><p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p></div>

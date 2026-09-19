@@ -4,7 +4,7 @@
 
 Projekt je připravený jako Vite/React frontend. V GitHubu vytvořte repository, nahrajte celý obsah tohoto projektu a ve Vercelu zvolte **Import Project**. Framework preset nastavte na **Vite**, build command ponechte `pnpm build` a output directory nastavte na `dist/public`. Soubor `vercel.json` zajišťuje SPA rewrite, takže přímé načtení routy nebude vracet 404.
 
-Před prvním ostrým nasazením spusťte lokálně `pnpm install`, `pnpm check` a `pnpm build`. Veřejnou URL je vhodné doplnit do OG metadata v `client/index.html` a nahradit placeholder v `client/public/robots.txt` skutečnou sitemapou, pokud ji budete používat.
+Před prvním ostrým nasazením spusťte lokálně `pnpm install`, `pnpm check` a `pnpm build`. Ostrá doména `https://k2garage.cz/` je už doplněná do canonical, Open Graph, Twitter a sitemap metadat. Hero fotografie, logo, favicony a obrázek pro sociální sdílení jsou uložené v `client/public/assets`, takže nasazení není závislé na Manus storage.
 
 ## GitHub Pages
 

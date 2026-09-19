@@ -8,6 +8,6 @@
   "background_color": "#17191a",
   "theme_color": "#232727",
   "icons": [
-    { "src": "/manus-storage/k2-garage-icon-180_12dfc79f.png", "sizes": "180x180", "type": "image/png" }
+    { "src": "/assets/k2-garage-icon-180.png", "sizes": "180x180", "type": "image/png" }
   ]
 }
