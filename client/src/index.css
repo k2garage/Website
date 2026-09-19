@@ -92,3 +92,43 @@
 @media (prefers-reduced-motion: reduce) {
   .page-loader__mark span::after { animation: none; }
 }
+
+
+/* Animated hero canvas: a quiet technical workshop signal instead of a photo or glass card. */
+.hero-slide__content{position:relative;z-index:2;padding-left:0;padding-right:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}
+.hero-visual{position:absolute;inset:0;overflow:hidden;background:radial-gradient(circle at 76% 42%,rgba(217,8,12,.2),transparent 18%),radial-gradient(circle at 90% 80%,rgba(149,168,159,.16),transparent 30%),linear-gradient(120deg,#101514 0%,#1b2321 48%,#111615 100%)}
+.hero-visual::before{position:absolute;inset:-30%;background:conic-gradient(from 210deg at 70% 48%,transparent 0deg,rgba(217,8,12,.12) 40deg,transparent 100deg,rgba(217,8,12,.06) 190deg,transparent 260deg);animation:hero-rotation 18s linear infinite;content:""}
+.hero-visual::after{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,14,13,.9),rgba(10,14,13,.68) 42%,rgba(10,14,13,.18) 78%),linear-gradient(0deg,rgba(10,14,13,.72),transparent 60%);content:""}
+.hero-visual__grid{position:absolute;inset:-20%;opacity:.25;background-image:linear-gradient(rgba(187,207,197,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(187,207,197,.14) 1px,transparent 1px);background-size:74px 74px;transform:perspective(500px) rotateX(58deg) translateY(18%);transform-origin:center bottom;animation:grid-drift 13s ease-in-out infinite alternate}
+.hero-visual__orb{position:absolute;border:1px solid rgba(217,8,12,.58);border-radius:50%;box-shadow:0 0 36px rgba(217,8,12,.16),inset 0 0 34px rgba(217,8,12,.08);animation:orb-float 8s ease-in-out infinite}
+.hero-visual__orb--one{top:11%;right:10%;width:min(38vw,560px);height:min(38vw,560px)}
+.hero-visual__orb--two{right:28%;bottom:-26%;width:min(30vw,420px);height:min(30vw,420px);border-color:rgba(208,224,215,.22);animation-delay:-2.4s;animation-duration:11s}
+.hero-visual__beam{position:absolute;width:58vw;height:1px;background:linear-gradient(90deg,transparent,rgba(217,8,12,.9),transparent);transform:rotate(-27deg);transform-origin:center;filter:drop-shadow(0 0 10px rgba(217,8,12,.5));animation:beam-sweep 6s var(--ease-in-out) infinite}
+.hero-visual__beam--one{top:32%;right:-8%}.hero-visual__beam--two{top:60%;right:-12%;opacity:.35;animation-delay:-2.1s}
+.hero-visual__word{position:absolute;right:7%;bottom:4%;color:transparent;font:700 clamp(14rem,32vw,32rem)/.7 "Space Grotesk",sans-serif;letter-spacing:-.16em;-webkit-text-stroke:1px rgba(239,246,241,.14);animation:word-breathe 7s ease-in-out infinite}
+.hero-visual__scanline{position:absolute;z-index:1;top:-20%;right:14%;width:1px;height:140%;background:linear-gradient(180deg,transparent,rgba(217,8,12,.8),transparent);box-shadow:0 0 20px rgba(217,8,12,.55);transform:rotate(24deg);animation:scanline 5.5s ease-in-out infinite}
+@keyframes hero-rotation{to{transform:rotate(360deg)}}
+@keyframes grid-drift{from{transform:perspective(500px) rotateX(58deg) translateY(18%) translateX(-2%)}to{transform:perspective(500px) rotateX(58deg) translateY(12%) translateX(2%)}}
+@keyframes orb-float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-18px,14px,0) scale(1.035)}}
+@keyframes beam-sweep{0%,100%{opacity:.15;transform:rotate(-27deg) translateX(20%)}45%{opacity:.9}70%{transform:rotate(-27deg) translateX(-12%)}}
+@keyframes word-breathe{0%,100%{opacity:.45;transform:translateX(0)}50%{opacity:.72;transform:translateX(-14px)}}
+@keyframes scanline{0%,100%{opacity:.1;transform:rotate(24deg) translateY(-15%)}50%{opacity:.8;transform:rotate(24deg) translateY(15%)}}
+
+@media (max-width: 760px){
+  .hero-slide__content{padding:1.45rem 0 1.55rem}
+  .hero-visual__grid{background-size:48px 48px;transform:perspective(360px) rotateX(60deg) translateY(18%)}
+  .hero-visual__orb--one{top:17%;right:-25%;width:78vw;height:78vw}
+  .hero-visual__orb--two{right:22%;bottom:-12%;width:58vw;height:58vw}
+  .hero-visual__word{right:-5%;bottom:15%;font-size:14rem}
+  .hero-visual__beam{width:120vw}
+  .hero-visual__scanline{right:18%}
+  .site-nav--open > a{opacity:0;animation:mobile-menu-item .46s var(--ease-out) both}
+  .site-nav--open > a:nth-of-type(1){animation-delay:80ms}
+  .site-nav--open > a:nth-of-type(2){animation-delay:135ms}
+  .site-nav--open > a:nth-of-type(3){animation-delay:190ms}
+  .site-nav--open > a:nth-of-type(4){animation-delay:245ms}
+  .site-nav--open > a:nth-of-type(5){animation-delay:300ms}
+  .site-nav--open .mobile-nav__extras{opacity:0;animation:mobile-menu-item .46s var(--ease-out) 390ms both}
+}
+@keyframes mobile-menu-item{from{opacity:0;transform:translateY(12px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@media (prefers-reduced-motion: reduce){.hero-visual::before,.hero-visual__grid,.hero-visual__orb,.hero-visual__beam,.hero-visual__word,.hero-visual__scanline{animation:none}.site-nav--open > a,.site-nav--open .mobile-nav__extras{opacity:1;animation:none}}
