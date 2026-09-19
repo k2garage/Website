@@ -1,6 +1,6 @@
 # K2 garage administration deployment guide
 
-**AutoAdmin Pro** is a Vite and React administration interface for the supplied K2 garage website. The interface is available at `/admin` and provides management views for vehicle listings, website enquiries, price tiers, and basic site configuration. The public website now includes `/inzeraty`, which reads the active listings from the same data source.
+**AutoAdmin Pro** is a Vite and React administration interface for the supplied K2 garage website. The interface is available at `/dashboard` and provides management views for vehicle listings, website enquiries, price tiers, and basic site configuration. The public website now includes `/inzeraty`, which reads the active listings from the same data source.
 
 ## What the project provides
 
@@ -26,7 +26,7 @@ Create or update the GitHub repository with the completed project files. In Verc
 
 Create a Neon PostgreSQL database and run [`database/migrations/001_admin_schema.sql`](database/migrations/001_admin_schema.sql) once in its SQL editor. The migration creates the five tables used by the dashboard and inserts initial settings and price tiers. Then add the environment variables from [`.env.example`](.env.example) in the Vercel project. Add the variables to Production, Preview, and Development where appropriate. Do not place secrets in a `VITE_` variable, source file, or Git commit.
 
-Set `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and a long random `ADMIN_SESSION_SECRET` before opening `/admin`. The login endpoint creates a signed, HTTP-only session cookie. Until those values are set, `/admin` deliberately opens only a local demonstration mode, which does not save data to production.
+Set `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `OWNER_USERNAME`, `OWNER_PASSWORD`, and a long random `ADMIN_SESSION_SECRET` before opening `/dashboard`. The login endpoint creates a signed, HTTP-only session cookie and records whether the account is `admin` or `owner`. Until those values are set, `/dashboard` deliberately opens only a local demonstration mode, which does not save data to production.
 
 Connect a Vercel Blob store if the client will upload car, logo, or favicon images. The dashboard only accepts image files and enforces a 5 MB upload limit. The project stores the blob token only on the server, never in the browser bundle.
 
@@ -44,17 +44,17 @@ If GitHub write access is not available, create one Vercel deploy hook under **P
 
 Install dependencies with `pnpm install`. Run `pnpm check` to type-check both the client and the Vercel functions. Run `pnpm build` to create the Vercel production build. The project has been checked and built successfully after the dashboard implementation.
 
-Use `pnpm dev` to review the public site and the non-persistent dashboard demo at `http://localhost:3000/admin`. For a local Vercel-function test, use the Vercel CLI with the same environment variables that will be used in the deployment. This is important because Vite’s development server does not execute the contents of the root `api` folder.
+Use `pnpm dev` to review the public site and the non-persistent dashboard demo at `http://localhost:3000/dashboard`. For a local Vercel-function test, use the Vercel CLI with the same environment variables that will be used in the deployment. This is important because Vite’s development server does not execute the contents of the root `api` folder.
 
 ## Main routes
 
 | Route | Audience | Purpose |
 | --- | --- | --- |
-| `/admin` | Authenticated administrator | Dashboard overview |
-| `/admin/messages` | Authenticated administrator | Enquiry inbox and message actions |
-| `/admin/listings` | Authenticated administrator | Vehicle CRUD and image upload |
-| `/admin/pricing` | Authenticated administrator | Public price-card editor |
-| `/admin/settings` | Authenticated administrator | Site identity and contact configuration |
+| `/dashboard` | Authenticated admin or owner | Dashboard overview |
+| `/dashboard/messages` | Authenticated admin or owner | Enquiry inbox and message actions |
+| `/dashboard/listings` | Authenticated admin or owner | Vehicle CRUD and image upload |
+| `/dashboard/pricing` | Authenticated admin or owner | Public price-card editor |
+| `/dashboard/settings` | Authenticated admin or owner | Site identity and contact configuration |
 | `/inzeraty` | Public visitors | Active vehicle listings |
 | `/api/contact` | Public contact form | Stores a message and requests email notification |
 | `/api/reservation` | Public reservation form | Stores a reservation message and requests email notification |

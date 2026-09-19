@@ -14,4 +14,4 @@ Pro GitHub Pages je vhodnější použít Vercel nebo jiný hosting, protože pr
 
 ## Obsah bez backendu
 
-Veřejný frontend má nyní serverless rozšíření. Kontaktní a rezervační formulář ukládají zprávy přes Vercel API a administrace je dostupná na `/admin`. Pokud nejsou nastavené proměnné prostředí, aplikace zůstává bezpečně zobrazitelná, ale administrace používá pouze ukázková data a veřejné formuláře neukládají zprávy.
+Veřejný frontend má nyní serverless rozšíření. Kontaktní a rezervační formulář ukládají zprávy přes Vercel API a administrace je dostupná na `/dashboard`. Přihlášení podporuje oddělené účty ADMIN a MAJITEL přes serverové proměnné. Pokud nejsou nastavené proměnné prostředí, aplikace zůstává bezpečně zobrazitelná, ale administrace používá pouze ukázková data a veřejné formuláře neukládají zprávy.
