@@ -1,6 +1,7 @@
 import FloatingActions from "@/components/FloatingActions";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import TurnstileWidget from "@/components/TurnstileWidget";
 import {
   CalendarDays,
   CheckCircle2,
@@ -13,7 +14,7 @@ import {
   Send,
   Trash2,
 } from "lucide-react";
-import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from "react";
+import { type ChangeEvent, type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -96,6 +97,8 @@ export default function Reservation() {
   const [photoError, setPhotoError] = useState("");
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
   const [submissionError, setSubmissionError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileError, setTurnstileError] = useState("");
   const photoUrls = useRef<string[]>([]);
 
   useEffect(() => {
@@ -111,6 +114,14 @@ export default function Reservation() {
   }, []);
 
   const selectedService = serviceOptions.find((option) => option.value === form.service);
+
+  const handleTurnstileToken = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileError = useCallback((message: string) => {
+    setTurnstileError(message);
+  }, []);
 
   const updateForm = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -175,12 +186,19 @@ export default function Reservation() {
     event.preventDefault();
     if (!form.service || submissionState === "sending") return;
 
+    if (!turnstileToken) {
+      setSubmissionState("error");
+      setSubmissionError("Před odesláním potvrďte bezpečnostní ověření proti spamu.");
+      return;
+    }
+
     setSubmissionState("sending");
     setSubmissionError("");
 
     const payload = new FormData();
     Object.entries(form).forEach(([key, value]) => payload.append(key, value));
     payload.set("serviceLabel", selectedService?.label ?? "");
+    payload.set("turnstileToken", turnstileToken);
     photos.forEach((photo) => payload.append("photos", photo.file));
 
     try {
@@ -197,6 +215,7 @@ export default function Reservation() {
 
       setSubmissionState("success");
       setForm(initialForm);
+      setTurnstileToken("");
       clearPhotos();
     } catch (error) {
       setSubmissionState("error");
@@ -303,6 +322,11 @@ export default function Reservation() {
 
               <label className="reservation-consent"><input type="checkbox" required /><span>Souhlasím se zpracováním uvedených údajů pro vyřízení své poptávky.</span></label>
 
+              <section className="reservation-turnstile" aria-label="Bezpečnostní ověření">
+                <TurnstileWidget onToken={handleTurnstileToken} onError={handleTurnstileError} />
+                {turnstileError && <p className="reservation-form__error"><CircleAlert size={17} /> {turnstileError}</p>}
+              </section>
+
               <div className="reservation-form__submit">
                 <button className="button button--accent button--large" type="submit" disabled={submissionState === "sending"}>
                   {submissionState === "sending" ? <LoaderCircle className="reservation-submit-loader" size={18} /> : <Send size={18} />}
@@ -310,7 +334,7 @@ export default function Reservation() {
                 </button>
                 <span>Odešle se přímo z webu na K2 garage — bez otevření e-mailového klienta.</span>
               </div>
-              {submissionState === "success" && <p className="reservation-form__success"><CheckCircle2 size={17} /> Děkujeme. Poptávku jsme přijali a co nejdříve se vám ozveme.</p>}
+              {submissionState === "success" && <section className="reservation-form__success" role="status"><CheckCircle2 size={25} /><div><strong>Děkujeme, poptávku jsme přijali.</strong><p>Ozveme se vám co nejdříve s návrhem termínu a dalším postupem. Pokud je situace urgentní, zavolejte na <a href={PHONE_HREF}>{PHONE}</a>.</p></div></section>}
               {submissionState === "error" && <p className="reservation-form__error"><CircleAlert size={17} /> {submissionError} Pokud spěcháte, zavolejte na <a href={PHONE_HREF}>{PHONE}</a>.</p>}
             </form>
           </div>

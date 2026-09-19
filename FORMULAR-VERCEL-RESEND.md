@@ -93,3 +93,10 @@ Doména `k2garage.cz` je v Resendu ověřena pro odesílání. Pro rezervační 
 Ve Vercelu existuje soukromý Blob Store `k2-garage-reservation-photos`, propojený s projektem `k2-garage`. Vercel automaticky přidal proměnné `BLOB_READ_WRITE_TOKEN`, `BLOB_STORE_ID` a `BLOB_WEBHOOK_PUBLIC_KEY` do všech tří prostředí. Fotografie proto mohou být ukládány neveřejně a následně připojeny k poptávce přes bezpečné odkazy.
 
 Klientská část formuláře už umí vybrat, validovat, zobrazit náhled a odebrat až pět fotografií ve formátech JPG, PNG a WEBP, každou do 8 MB. Chybí pouze serverová Vercel Function `/api/reservation`, která přijme formulář, vystaví prohlížeči krátkodobý token pro soukromý upload do Blob Store, validuje data a odešle e-mail prostřednictvím Resendu. Tato funkce musí běžet mimo klientský React kód, aby žádný tajný klíč nebyl dostupný návštěvníkům webu.
+
+
+## Turnstile proti spamu
+
+Cloudflare Turnstile widget pro `k2garage.cz` je vytvořen v režimu **Managed**. Veřejný Site Key je vložený jen do klientské komponenty formuláře a tajný klíč je uložen ve Vercelu jako `TURNSTILE_SECRET_KEY` pouze pro produkční prostředí. Formulář vyžaduje platný Turnstile token ještě před odesláním; token se přikládá k datům pod klíčem `turnstileToken`.
+
+Serverová funkce `/api/reservation` musí token ověřit voláním Cloudflare Siteverify API před uložením příloh nebo odesláním e-mailu. Samotná klientská kontrola nezastupuje serverové ověření a nesmí být považována za ochranu endpointu.

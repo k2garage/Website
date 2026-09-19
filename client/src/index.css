@@ -572,3 +572,19 @@ h1, h2, h3, .vehicle-placeholder__mark, .vehicle-placeholder p {
 .reservation-photo-preview{position:relative;min-width:0;overflow:hidden;margin:0;border:1px solid #d6ddd9;border-radius:13px;background:#fff}.reservation-photo-preview img{display:block;width:100%;height:116px;object-fit:cover}.reservation-photo-preview figcaption{display:grid;gap:.18rem;padding:.6rem .65rem}.reservation-photo-preview figcaption span{overflow:hidden;color:#3b4540;font-size:.7rem;font-weight:700;line-height:1.25;text-overflow:ellipsis;white-space:nowrap}.reservation-photo-preview figcaption small{color:#7a847e;font-size:.66rem}.reservation-photo-preview button{position:absolute;top:.45rem;right:.45rem;display:grid;width:28px;height:28px;place-items:center;border:1px solid rgba(255,255,255,.5);border-radius:50%;color:#fff;background:rgba(23,29,27,.72);backdrop-filter:blur(8px);transition:background 180ms ease,transform 180ms var(--ease-out)}.reservation-photo-preview button:hover{background:var(--accent);transform:scale(1.08)}
 .reservation-consent{display:flex;align-items:flex-start;gap:.65rem;margin-top:1.6rem;color:#66706a;font-size:.76rem;line-height:1.5}.reservation-consent input{width:17px!important;height:17px!important;flex:0 0 auto;margin:.08rem 0 0!important;accent-color:var(--accent)}.reservation-form button:disabled{cursor:wait;opacity:.74;transform:none!important}.reservation-submit-loader{animation:reservation-spinner .8s linear infinite}@keyframes reservation-spinner{to{transform:rotate(360deg)}}
 @media(max-width:760px){.reservation-photo-list{grid-template-columns:repeat(2,minmax(0,1fr))}.reservation-photo-preview img{height:118px}.reservation-consent{margin-top:1.35rem;font-size:.74rem}}
+
+
+/* Reservation security and confirmation */
+.reservation-turnstile{margin-top:1.45rem;padding-top:1.45rem;border-top:1px solid #e1e6e3}
+.turnstile-widget{display:grid;gap:.7rem;max-width:330px}
+.turnstile-widget__heading{display:flex;align-items:center;gap:.55rem;color:#3d4843;font:800 .74rem/1 var(--font-display);letter-spacing:.065em;text-transform:uppercase}
+.turnstile-widget__heading svg{color:var(--accent)}
+.turnstile-widget__frame{min-height:68px}
+.turnstile-widget>p{margin:0;color:#717b75;font-size:.73rem;line-height:1.45}
+.turnstile-widget__error{color:#a1262a!important}
+.reservation-form__success{align-items:flex-start;gap:.85rem;margin:1.35rem 0 0;padding:1rem 1.1rem;border:1px solid rgba(28,154,86,.28);border-radius:14px;color:#1c5a38;background:rgba(30,154,86,.075)}
+.reservation-form__success>svg{flex:0 0 auto;margin-top:.08rem}
+.reservation-form__success strong{display:block;margin-bottom:.22rem;font:850 .92rem/1.2 var(--font-display);letter-spacing:-.02em}
+.reservation-form__success p{margin:0;color:#4e6d5b;font-size:.79rem;line-height:1.55}
+.reservation-form__success a{color:#1c5a38;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.turnstile-widget{max-width:100%}.reservation-form__success{padding:1rem}.reservation-turnstile{margin-top:1.2rem;padding-top:1.2rem}}
