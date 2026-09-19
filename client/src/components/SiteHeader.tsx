@@ -42,9 +42,9 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
             <a className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</a>
             <a className="site-nav__link" href="/#o-nas" onClick={closeMenu}>O nás</a>
             <button className="site-nav__link" type="button" onClick={showComingSoon}>Ceník</button>
-            <a className="site-nav__link" href="/#kontakt" onClick={closeMenu}>Kontakt</a>
+            <a className="site-nav__link" href="/kontakt" onClick={closeMenu}>Kontakt</a>
           </div>
-          <a className="site-nav__contact--mobile" href="/#kontakt" onClick={closeMenu}><Phone size={17} /> Kontaktovat</a>
+          <a className="site-nav__contact--mobile" href="/kontakt" onClick={closeMenu}><Phone size={17} /> Kontaktovat</a>
           <a className="site-nav__reservation site-nav__reservation--mobile" href="/rezervace" onClick={closeMenu}>Rezervace <ArrowRight size={15} /></a>
           <div className="mobile-nav__extras">
             <div className="mobile-nav__socials" aria-label="Sociální sítě">
@@ -55,7 +55,7 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
         </nav>
 
         <div className="header-actions">
-          <a className="header-contact" href="/#kontakt"><Phone size={15} /> Kontaktovat</a>
+          <a className="header-contact" href="/kontakt"><Phone size={15} /> Kontaktovat</a>
           <a className="header-reservation" href="/rezervace">Rezervace <ArrowRight size={15} /></a>
         </div>
 

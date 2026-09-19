@@ -37,7 +37,7 @@ export default function SiteFooter() {
           <a href="/sluzby">Služby</a>
           <a href="/#o-nas">O nás</a>
           <button className="footer-nav-button" type="button" onClick={showComingSoon}>Ceník</button>
-          <a href="/#kontakt">Kontakt</a>
+          <a href="/kontakt">Kontakt</a>
         </nav>
 
         <address className="site-footer__contact">
@@ -50,7 +50,7 @@ export default function SiteFooter() {
       </div>
 
       <div className="container footer-actions">
-        <a className="footer-contact" href="/#kontakt"><Phone size={16} /> Kontaktovat</a>
+        <a className="footer-contact" href="/kontakt"><Phone size={16} /> Kontaktovat</a>
         <a className="footer-reservation" href="/rezervace">Rezervace <ArrowRight size={16} /></a>
       </div>
 
