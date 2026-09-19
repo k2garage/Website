@@ -1,9 +1,9 @@
-import type { SiteSettings } from "../../shared/admin";
-import type { ApiRequest, ApiResponse } from "../_lib/http";
-import { json, methodNotAllowed, readJsonBody, stringValue } from "../_lib/http";
-import { requireAdmin } from "../_lib/auth";
-import { getSettings, saveSettings } from "../_lib/db";
-import { publishContent } from "../_lib/publish";
+import type { SiteSettings } from "../../../shared/admin";
+import type { ApiRequest, ApiResponse } from "../../../api/_lib/http";
+import { json, methodNotAllowed, readJsonBody, stringValue } from "../../../api/_lib/http";
+import { requireAdmin } from "../../../api/_lib/auth";
+import { getSettings, saveSettings } from "../../../api/_lib/db";
+import { publishContent } from "../../../api/_lib/publish";
 
 function urlOrEmpty(value: unknown) {
   const string = stringValue(value, 2000);

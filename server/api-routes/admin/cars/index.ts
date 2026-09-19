@@ -1,9 +1,9 @@
-import type { CarListing } from "../../../shared/admin";
-import type { ApiRequest, ApiResponse } from "../../_lib/http";
-import { booleanValue, integerValue, json, methodNotAllowed, readJsonBody, stringValue } from "../../_lib/http";
-import { requireAdmin } from "../../_lib/auth";
-import { getCars, saveCar } from "../../_lib/db";
-import { publishContent } from "../../_lib/publish";
+import type { CarListing } from "../../../../shared/admin";
+import type { ApiRequest, ApiResponse } from "../../../../api/_lib/http";
+import { booleanValue, integerValue, json, methodNotAllowed, readJsonBody, stringValue } from "../../../../api/_lib/http";
+import { requireAdmin } from "../../../../api/_lib/auth";
+import { getCars, saveCar } from "../../../../api/_lib/db";
+import { publishContent } from "../../../../api/_lib/publish";
 
 function validateCar(body: Record<string, unknown>, id: string): Omit<CarListing, "createdAt" | "updatedAt"> | { error: string } {
   const make = stringValue(body.make, 80);

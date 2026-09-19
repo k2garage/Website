@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from "../_lib/http";
-import { json, methodNotAllowed, readJsonBody, stringValue } from "../_lib/http";
-import { authIsConfigured, createSession, credentialsAreValid, setSessionCookie } from "../_lib/auth";
-import { isRateLimited } from "../_lib/rateLimit";
+import type { ApiRequest, ApiResponse } from "../../../api/_lib/http";
+import { json, methodNotAllowed, readJsonBody, stringValue } from "../../../api/_lib/http";
+import { authIsConfigured, createSession, credentialsAreValid, setSessionCookie } from "../../../api/_lib/auth";
+import { isRateLimited } from "../../../api/_lib/rateLimit";
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== "POST") return methodNotAllowed(res, ["POST"]);

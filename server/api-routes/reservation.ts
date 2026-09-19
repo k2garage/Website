@@ -1,9 +1,9 @@
 import Busboy from "busboy";
-import type { ApiRequest, ApiResponse } from "./_lib/http";
-import { clientIp, json, methodNotAllowed, stringValue } from "./_lib/http";
-import { createMessage } from "./_lib/db";
-import { notifyNewMessage } from "./_lib/mailer";
-import { isRateLimited } from "./_lib/rateLimit";
+import type { ApiRequest, ApiResponse } from "../../api/_lib/http";
+import { clientIp, json, methodNotAllowed, stringValue } from "../../api/_lib/http";
+import { createMessage } from "../../api/_lib/db";
+import { notifyNewMessage } from "../../api/_lib/mailer";
+import { isRateLimited } from "../../api/_lib/rateLimit";
 
 export const config = { api: { bodyParser: false } };
 

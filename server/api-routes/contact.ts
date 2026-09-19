@@ -1,8 +1,8 @@
-import type { ApiRequest, ApiResponse } from "./_lib/http";
-import { clientIp, json, methodNotAllowed, readJsonBody, stringValue } from "./_lib/http";
-import { createMessage } from "./_lib/db";
-import { notifyNewMessage } from "./_lib/mailer";
-import { isRateLimited } from "./_lib/rateLimit";
+import type { ApiRequest, ApiResponse } from "../../api/_lib/http";
+import { clientIp, json, methodNotAllowed, readJsonBody, stringValue } from "../../api/_lib/http";
+import { createMessage } from "../../api/_lib/db";
+import { notifyNewMessage } from "../../api/_lib/mailer";
+import { isRateLimited } from "../../api/_lib/rateLimit";
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== "POST") return methodNotAllowed(res, ["POST"]);

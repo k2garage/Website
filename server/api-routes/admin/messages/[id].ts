@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from "../../_lib/http";
-import { json, methodNotAllowed, readJsonBody, stringValue } from "../../_lib/http";
-import { requireAdmin } from "../../_lib/auth";
-import { deleteMessage, getMessage, updateMessageStatus } from "../../_lib/db";
+import type { ApiRequest, ApiResponse } from "../../../../api/_lib/http";
+import { json, methodNotAllowed, readJsonBody, stringValue } from "../../../../api/_lib/http";
+import { requireAdmin } from "../../../../api/_lib/auth";
+import { deleteMessage, getMessage, updateMessageStatus } from "../../../../api/_lib/db";
 
 const messageId = (req: ApiRequest) => stringValue(Array.isArray(req.query?.id) ? req.query?.id[0] : req.query?.id, 100);
 

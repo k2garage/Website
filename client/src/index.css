@@ -588,3 +588,7 @@ h1, h2, h3, .vehicle-placeholder__mark, .vehicle-placeholder p {
 .reservation-form__success p{margin:0;color:#4e6d5b;font-size:.79rem;line-height:1.55}
 .reservation-form__success a{color:#1c5a38;font-weight:800;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:760px){.turnstile-widget{max-width:100%}.reservation-form__success{padding:1rem}.reservation-turnstile{margin-top:1.2rem;padding-top:1.2rem}}
+
+/* Keep the primary reservation action full-width on every screen size. */
+.reservation-form__submit{display:block}
+.reservation-form__submit .button{width:100%;justify-content:center}

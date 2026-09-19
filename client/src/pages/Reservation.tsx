@@ -245,7 +245,7 @@ export default function Reservation() {
             <aside className="reservation-form-aside">
               <span className="section-kicker">Jak to funguje</span>
               <h2>Vyplníte.<br />Odešlete.</h2>
-              <p>Poptávka se odešle přímo z webu. Fotografie závady nebo vozu pomohou připravit přesnější podklady ještě před prvním telefonátem.</p>
+              <p>Fotografie závady nebo vozu pomohou připravit přesnější podklady ještě před prvním telefonátem.</p>
               <div className="reservation-form-aside__points">
                 <span><CheckCircle2 size={17} /> Nezávazná poptávka</span>
                 <span><CheckCircle2 size={17} /> Potvrzení termínu telefonicky</span>
@@ -332,7 +332,6 @@ export default function Reservation() {
                   {submissionState === "sending" ? <LoaderCircle className="reservation-submit-loader" size={18} /> : <Send size={18} />}
                   {submissionState === "sending" ? "Odesíláme poptávku…" : "Odeslat poptávku"}
                 </button>
-                <span>Odešle se přímo z webu na K2 garage — bez otevření e-mailového klienta.</span>
               </div>
               {submissionState === "success" && <section className="reservation-form__success" role="status"><CheckCircle2 size={25} /><div><strong>Děkujeme, poptávku jsme přijali.</strong><p>Ozveme se vám co nejdříve s návrhem termínu a dalším postupem. Pokud je situace urgentní, zavolejte na <a href={PHONE_HREF}>{PHONE}</a>.</p></div></section>}
               {submissionState === "error" && <p className="reservation-form__error"><CircleAlert size={17} /> {submissionError} Pokud spěcháte, zavolejte na <a href={PHONE_HREF}>{PHONE}</a>.</p>}

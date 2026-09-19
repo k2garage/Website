@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from "../_lib/http";
-import { json, methodNotAllowed } from "../_lib/http";
-import { requireAdmin } from "../_lib/auth";
-import { readImageUpload, storeImage } from "../_lib/upload";
+import type { ApiRequest, ApiResponse } from "../../../api/_lib/http";
+import { json, methodNotAllowed } from "../../../api/_lib/http";
+import { requireAdmin } from "../../../api/_lib/auth";
+import { readImageUpload, storeImage } from "../../../api/_lib/upload";
 
 export const config = { api: { bodyParser: false } };
 

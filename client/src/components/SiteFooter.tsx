@@ -13,6 +13,8 @@ const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
 
 export default function SiteFooter() {
+  const navigateFromTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <footer className="site-footer">
       <div className="container site-footer__grid">
@@ -28,11 +30,11 @@ export default function SiteFooter() {
 
         <nav className="site-footer__nav" aria-label="Navigace v patičce">
           <span className="footer-label">NAVIGACE</span>
-          <Link href="/sluzby">Služby</Link>
-          <Link href="/inzeraty">Vozidla</Link>
-          <Link href="/o-nas">O nás</Link>
-          <Link href="/cenik">Ceník</Link>
-          <Link href="/kontakt">Kontakt</Link>
+          <Link href="/sluzby" onClick={navigateFromTop}>Služby</Link>
+          <Link href="/inzeraty" onClick={navigateFromTop}>Vozidla</Link>
+          <Link href="/o-nas" onClick={navigateFromTop}>O nás</Link>
+          <Link href="/cenik" onClick={navigateFromTop}>Ceník</Link>
+          <Link href="/kontakt" onClick={navigateFromTop}>Kontakt</Link>
         </nav>
 
         <address className="site-footer__contact">
@@ -45,8 +47,8 @@ export default function SiteFooter() {
       </div>
 
       <div className="container footer-actions">
-        <Link className="footer-contact" href="/kontakt"><Phone size={16} /> Kontaktovat</Link>
-        <Link className="footer-reservation" href="/rezervace">Rezervace <ArrowRight size={16} /></Link>
+        <Link className="footer-contact" href="/kontakt" onClick={navigateFromTop}><Phone size={16} /> Kontaktovat</Link>
+        <Link className="footer-reservation" href="/rezervace" onClick={navigateFromTop}>Rezervace <ArrowRight size={16} /></Link>
       </div>
 
       <div className="container site-footer__bottom">

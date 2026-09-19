@@ -23,6 +23,10 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
   }, [menuOpen, lockPage]);
 
   const closeMenu = () => setMenuOpen(false);
+  const navigateFromTop = () => {
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <header className={`site-header ${menuOpen ? "site-header--menu-open" : ""} ${isScrolled ? "site-header--scrolled" : ""}`}>
@@ -33,14 +37,14 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
 
         <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
           <div className="site-nav__core">
-            <Link className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</Link>
-            <Link className="site-nav__link" href="/inzeraty" onClick={closeMenu}>Vozidla</Link>
-            <Link className="site-nav__link" href="/o-nas" onClick={closeMenu}>O nás</Link>
-            <Link className="site-nav__link" href="/cenik" onClick={closeMenu}>Ceník</Link>
-            <Link className="site-nav__link" href="/kontakt" onClick={closeMenu}>Kontakt</Link>
+            <Link className="site-nav__link" href="/sluzby" onClick={navigateFromTop}>Služby</Link>
+            <Link className="site-nav__link" href="/inzeraty" onClick={navigateFromTop}>Vozidla</Link>
+            <Link className="site-nav__link" href="/o-nas" onClick={navigateFromTop}>O nás</Link>
+            <Link className="site-nav__link" href="/cenik" onClick={navigateFromTop}>Ceník</Link>
+            <Link className="site-nav__link" href="/kontakt" onClick={navigateFromTop}>Kontakt</Link>
           </div>
-          <Link className="site-nav__contact--mobile" href="/kontakt" onClick={closeMenu}><Phone size={17} /> Kontaktovat</Link>
-          <Link className="site-nav__reservation site-nav__reservation--mobile" href="/rezervace" onClick={closeMenu}>Rezervace <ArrowRight size={15} /></Link>
+          <Link className="site-nav__contact--mobile" href="/kontakt" onClick={navigateFromTop}><Phone size={17} /> Kontaktovat</Link>
+          <Link className="site-nav__reservation site-nav__reservation--mobile" href="/rezervace" onClick={navigateFromTop}>Rezervace <ArrowRight size={15} /></Link>
           <div className="mobile-nav__extras">
             <div className="mobile-nav__socials" aria-label="Sociální sítě">
               <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
@@ -50,8 +54,8 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
         </nav>
 
         <div className="header-actions">
-          <Link className="header-contact" href="/kontakt"><Phone size={15} /> Kontaktovat</Link>
-          <Link className="header-reservation" href="/rezervace">Rezervace <ArrowRight size={15} /></Link>
+          <Link className="header-contact" href="/kontakt" onClick={navigateFromTop}><Phone size={15} /> Kontaktovat</Link>
+          <Link className="header-reservation" href="/rezervace" onClick={navigateFromTop}>Rezervace <ArrowRight size={15} /></Link>
         </div>
 
         <button

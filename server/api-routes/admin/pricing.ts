@@ -1,9 +1,9 @@
-import type { PricingTier } from "../../shared/admin";
-import type { ApiRequest, ApiResponse } from "../_lib/http";
-import { booleanValue, integerValue, json, methodNotAllowed, readJsonBody, stringValue } from "../_lib/http";
-import { requireAdmin } from "../_lib/auth";
-import { getPricing, savePricing } from "../_lib/db";
-import { publishContent } from "../_lib/publish";
+import type { PricingTier } from "../../../shared/admin";
+import type { ApiRequest, ApiResponse } from "../../../api/_lib/http";
+import { booleanValue, integerValue, json, methodNotAllowed, readJsonBody, stringValue } from "../../../api/_lib/http";
+import { requireAdmin } from "../../../api/_lib/auth";
+import { getPricing, savePricing } from "../../../api/_lib/db";
+import { publishContent } from "../../../api/_lib/publish";
 
 function validateTier(value: unknown, index: number): PricingTier | null {
   if (!value || typeof value !== "object") return null;

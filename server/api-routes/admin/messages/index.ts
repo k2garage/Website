@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from "../../_lib/http";
-import { json, methodNotAllowed } from "../../_lib/http";
-import { requireAdmin } from "../../_lib/auth";
-import { getMessages } from "../../_lib/db";
+import type { ApiRequest, ApiResponse } from "../../../../api/_lib/http";
+import { json, methodNotAllowed } from "../../../../api/_lib/http";
+import { requireAdmin } from "../../../../api/_lib/auth";
+import { getMessages } from "../../../../api/_lib/db";
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== "GET") return methodNotAllowed(res, ["GET"]);
