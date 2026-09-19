@@ -6,10 +6,13 @@ import {
   CheckCircle2,
   ChevronDown,
   Clock3,
+  LoaderCircle,
   Mail,
   MessageCircle,
   Phone,
+  Send,
 } from "lucide-react";
+import { type FormEvent, useState } from "react";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -44,6 +47,30 @@ const faqs = [
 ];
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "", website: "" });
+  const [formState, setFormState] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [formError, setFormError] = useState("");
+
+  const submitContact = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFormState("sending");
+    setFormError("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...form, sourcePage: "/kontakt" }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result?.data?.accepted !== true) throw new Error(result.error ?? "Zprávu se zatím nepodařilo odeslat.");
+      setForm({ name: "", email: "", phone: "", subject: "", message: "", website: "" });
+      setFormState("success");
+    } catch (error) {
+      setFormState("error");
+      setFormError(error instanceof Error ? error.message : "Zprávu se zatím nepodařilo odeslat.");
+    }
+  };
+
   return (
     <div className="contact-page" id="top">
       <SiteHeader />
@@ -98,6 +125,28 @@ export default function Contact() {
                 <small>Adresa dílny není na webu uvedena</small>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="bg-[#edf1ef] py-20 sm:py-24">
+          <div className="container grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
+            <div>
+              <span className="section-kicker">Napište nám</span>
+              <h2 className="mt-5 text-[clamp(2.7rem,4.5vw,4.9rem)]">Pošlete dotaz.<br />Ozveme se zpět.</h2>
+              <p className="mt-6 max-w-md text-[1rem] leading-7 text-[#626b65]">Pokud nejde o akutní záležitost, nechte nám na sebe kontakt. Zpráva se uloží přímo do naší schránky a přijde nám e-mailem.</p>
+              <div className="mt-7 flex items-center gap-3 text-sm font-semibold text-[#47514c]"><span className="grid size-9 place-items-center rounded-xl border border-[#d9080c]/20 bg-[#d9080c]/8 text-[#d9080c]"><Mail size={17} /></span> Odpovídáme v pracovní době.</div>
+            </div>
+            <form onSubmit={submitContact} className="rounded-[24px] border border-[#d4dcd7] bg-white p-6 shadow-[0_16px_34px_rgba(30,41,36,.06)] sm:p-8">
+              <input name="website" value={form.website} onChange={(event) => setForm({ ...form, website: event.target.value })} tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[10000px] opacity-0" />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="text-xs font-bold uppercase tracking-[.08em] text-[#68726c]">Jméno *<input required value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} className="mt-2 w-full rounded-xl border border-[#d7dfda] px-4 py-3 text-sm font-normal normal-case tracking-normal text-[#1d2522] outline-none transition focus:border-[#d9080c] focus:ring-4 focus:ring-[#d9080c]/10" /></label>
+                <label className="text-xs font-bold uppercase tracking-[.08em] text-[#68726c]">E-mail *<input required type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} className="mt-2 w-full rounded-xl border border-[#d7dfda] px-4 py-3 text-sm font-normal normal-case tracking-normal text-[#1d2522] outline-none transition focus:border-[#d9080c] focus:ring-4 focus:ring-[#d9080c]/10" /></label>
+                <label className="text-xs font-bold uppercase tracking-[.08em] text-[#68726c]">Telefon<label className="ml-1 text-[10px] text-[#a4ada7]">(volitelné)</label><input value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} className="mt-2 w-full rounded-xl border border-[#d7dfda] px-4 py-3 text-sm font-normal normal-case tracking-normal text-[#1d2522] outline-none transition focus:border-[#d9080c] focus:ring-4 focus:ring-[#d9080c]/10" /></label>
+                <label className="text-xs font-bold uppercase tracking-[.08em] text-[#68726c]">Předmět<input value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} placeholder="Např. Dotaz k vozidlu" className="mt-2 w-full rounded-xl border border-[#d7dfda] px-4 py-3 text-sm font-normal normal-case tracking-normal text-[#1d2522] outline-none transition placeholder:text-[#a4ada7] focus:border-[#d9080c] focus:ring-4 focus:ring-[#d9080c]/10" /></label>
+                <label className="text-xs font-bold uppercase tracking-[.08em] text-[#68726c] sm:col-span-2">Zpráva *<textarea required rows={5} value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} placeholder="S čím vám můžeme pomoci?" className="mt-2 w-full resize-y rounded-xl border border-[#d7dfda] px-4 py-3 text-sm font-normal normal-case tracking-normal text-[#1d2522] outline-none transition placeholder:text-[#a4ada7] focus:border-[#d9080c] focus:ring-4 focus:ring-[#d9080c]/10" /></label>
+              </div>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-4"><button disabled={formState === "sending"} className="inline-flex items-center gap-2 rounded-xl bg-[#d9080c] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#b6070a] disabled:opacity-70">{formState === "sending" ? <LoaderCircle className="animate-spin" size={17} /> : <Send size={17} />}{formState === "sending" ? "Odesíláme…" : "Odeslat zprávu"}</button>{formState === "success" && <p className="text-sm font-semibold text-emerald-700">Děkujeme, zpráva byla odeslána.</p>}{formState === "error" && <p className="max-w-sm text-sm font-semibold text-[#d9080c]">{formError}</p>}</div>
+            </form>
           </div>
         </section>
 

@@ -209,8 +209,8 @@ export default function Reservation() {
       });
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        throw new Error(result?.message ?? "Poptávku se zatím nepodařilo odeslat.");
+      if (!response.ok || result?.data?.accepted !== true) {
+        throw new Error(result?.error ?? result?.message ?? "Poptávku se zatím nepodařilo odeslat.");
       }
 
       setSubmissionState("success");

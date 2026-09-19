@@ -1,5 +1,7 @@
 # K2 garage — deployment
 
+> **Administrace a data:** Kompletní postup pro AutoAdmin Pro, databázi Neon, Vercel Blob, Resend, bezpečné přihlášení a publikování přes GitHub nebo Vercel je v souboru [ADMIN-DEPLOYMENT.md](ADMIN-DEPLOYMENT.md).
+
 ## Vercel
 
 Projekt je připravený jako Vite/React frontend. V GitHubu vytvořte repository, nahrajte celý obsah tohoto projektu a ve Vercelu zvolte **Import Project**. Framework preset nastavte na **Vite**, build command ponechte `pnpm build` a output directory nastavte na `dist/public`. Soubor `vercel.json` zajišťuje SPA rewrite, takže přímé načtení routy nebude vracet 404.
@@ -12,4 +14,4 @@ Pro GitHub Pages je vhodnější použít Vercel nebo jiný hosting, protože pr
 
 ## Obsah bez backendu
 
-Web je statický frontend. Telefonní odkazy používají `tel:+420725480018`, e-mail používá `mailto:k2garage@seznam.cz` a formulář není součástí této verze. Sociální odkazy jsou zatím obecné placeholdery a před publikací je nahraďte skutečnými profily K2 garage.
+Veřejný frontend má nyní serverless rozšíření. Kontaktní a rezervační formulář ukládají zprávy přes Vercel API a administrace je dostupná na `/admin`. Pokud nejsou nastavené proměnné prostředí, aplikace zůstává bezpečně zobrazitelná, ale administrace používá pouze ukázková data a veřejné formuláře neukládají zprávy.

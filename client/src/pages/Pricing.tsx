@@ -14,6 +14,8 @@ import {
   Sparkles,
   Wrench,
 } from "lucide-react";
+import type { PricingTier } from "@shared/admin";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 
 const PHONE = "725 480 018";
@@ -114,6 +116,24 @@ const priceGroups = [
 ];
 
 export default function Pricing() {
+  const [editableTiers, setEditableTiers] = useState<PricingTier[]>(() => packages.map((pack, index) => ({
+    id: `fallback-${index}`,
+    title: pack.title,
+    description: pack.description,
+    priceLabel: pack.price,
+    highlighted: Boolean(pack.featured),
+    sortOrder: index + 1,
+    features: pack.points,
+    updatedAt: new Date().toISOString(),
+  })));
+
+  useEffect(() => {
+    fetch("/api/public/pricing", { headers: { Accept: "application/json" } })
+      .then(async (response) => response.ok ? response.json() as Promise<{ data: PricingTier[] }> : Promise.reject())
+      .then((payload) => payload.data.length && setEditableTiers(payload.data))
+      .catch(() => { /* static fallback stays available during local preview */ });
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#edf1ef]" id="top">
       <SiteHeader />
@@ -149,7 +169,9 @@ export default function Pricing() {
               <p className="m-0 max-w-xl text-[#626b65]">Praktické orientační balíčky pro situace, které zákazníci řeší nejčastěji. Rozsah vždy upravíme podle vašeho vozu.</p>
             </div>
             <div className="grid gap-4 lg:grid-cols-3">
-              {packages.map((pack) => {
+              {packages.map((basePack, index) => {
+                const managed = editableTiers[index];
+                const pack = managed ? { ...basePack, title: managed.title, description: managed.description, price: managed.priceLabel, featured: managed.highlighted, points: managed.features } : basePack;
                 const Icon = pack.icon;
                 return (
                   <article key={pack.title} className={`relative flex min-h-[390px] flex-col overflow-hidden rounded-[24px] border p-7 shadow-[0_14px_30px_rgba(30,41,36,.04)] transition-transform duration-300 hover:-translate-y-1 ${pack.featured ? "border-[#d9080c] bg-[#242a28] text-[#f7f2e9] shadow-[0_22px_42px_rgba(30,41,36,.18)]" : "border-[#d4dcd7] bg-white/75 text-[#1d2522]"}`}>

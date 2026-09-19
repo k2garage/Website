@@ -302,8 +302,8 @@ export default function Home() {
 
         <section className="vehicle-sales-section section-pad reveal" id="prodej">
           <div className="container vehicle-sales-grid">
-            <div><span className="eyebrow">Prodej vozidel</span><h2>Nabídku připravujeme.</h2><p className="lead">Aktuálně nemáme v nabídce konkrétní vozidla. Jakmile budou vozy k dispozici, každý z nich bude mít vlastní stránku s fotografiemi, popisem a důležitými informacemi.</p><a className="button button--dark" href={PHONE_HREF}>Ptejte se na telefonu <Phone size={16} /></a></div>
-            <div className="vehicle-placeholder"><div className="vehicle-placeholder__top"><span>PŘIPRAVUJEME</span></div><div className="vehicle-placeholder__mark">K2</div><p>Každý vůz<br />s vlastním příběhem.</p><ArrowDownRight className="vehicle-placeholder__arrow" size={30} /></div>
+            <div><span className="eyebrow">Prodej vozidel</span><h2>Vybrané vozy.<br />Jasné informace.</h2><p className="lead">Aktuální nabídku vozidel najdete na jednom místě. U každého vozu uvádíme klíčové údaje, cenu a možnost domluvit si prohlídku.</p><a className="button button--dark" href="/inzeraty">Prohlédnout nabídku <ArrowRight size={16} /></a></div>
+            <a className="vehicle-placeholder" href="/inzeraty"><div className="vehicle-placeholder__top"><span>AKTUÁLNÍ NABÍDKA</span></div><div className="vehicle-placeholder__mark">K2</div><p>Každý vůz<br />s vlastním příběhem.</p><ArrowDownRight className="vehicle-placeholder__arrow" size={30} /></a>
           </div>
         </section>
 

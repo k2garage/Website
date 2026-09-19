@@ -29,6 +29,7 @@ export default function SiteFooter() {
         <nav className="site-footer__nav" aria-label="Navigace v patičce">
           <span className="footer-label">NAVIGACE</span>
           <Link href="/sluzby">Služby</Link>
+          <Link href="/inzeraty">Vozidla</Link>
           <Link href="/o-nas">O nás</Link>
           <Link href="/cenik">Ceník</Link>
           <Link href="/kontakt">Kontakt</Link>
