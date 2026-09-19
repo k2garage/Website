@@ -19,6 +19,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import { toast } from "sonner";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -195,6 +196,13 @@ export default function Home() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const showComingSoon = (page: string) => {
+    closeMenu();
+    toast(page + " připravujeme", {
+      description: "Samostatnou stránku doplníme v další fázi webu.",
+    });
+  };
+
 
   return (
     <div className="site-shell">
@@ -210,13 +218,12 @@ export default function Home() {
           </a>
 
           <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
-            <a href="#sluzby" onClick={closeMenu}>Služby</a>
-            <a href="#kontrola-vozu" onClick={closeMenu}>Kontrola vozu</a>
-            <a href="#prodej" onClick={closeMenu}>Prodej vozidel</a>
-            <a href="#dovoz" onClick={closeMenu}>Dovoz vozidel</a>
-            <a href="#kontakt" onClick={closeMenu}>Kontakt</a>
+            <a className="site-nav__link" href="#sluzby" onClick={closeMenu}>Služby</a>
+            <a className="site-nav__link" href="#o-nas" onClick={closeMenu}>O nás</a>
+            <button className="site-nav__link" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button>
+            <a className="site-nav__link" href="#kontakt" onClick={closeMenu}>Kontakt</a>
+            <button className="site-nav__link site-nav__reservation" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace <ArrowRight size={15} /></button>
             <div className="mobile-nav__extras">
-              <a className="mobile-nav__call" href={PHONE_HREF} onClick={closeMenu}><Phone size={18} /> Zavolat na {PHONE}</a>
               <div className="mobile-nav__socials" aria-label="Sociální sítě">
                 <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
@@ -224,10 +231,6 @@ export default function Home() {
             </div>
           </nav>
 
-          <a className="header-phone" href={PHONE_HREF}>
-            <Phone size={16} strokeWidth={2.5} />
-            <span>{PHONE}</span>
-          </a>
           <button
             className="menu-toggle"
             type="button"
@@ -299,6 +302,14 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <div className="service-ticker" aria-label="Hlavní služby K2 garage">
+          <div className="service-ticker__track">
+            {["Autoservis", "Pneuservis", "Motoservis", "Detailing", "Kontrola vozu", "Dovoz vozidel", "Autoservis", "Pneuservis", "Motoservis", "Detailing", "Kontrola vozu", "Dovoz vozidel"].map((label, index) => (
+              <span key={`${label}-${index}`}><i />{label}</span>
+            ))}
+          </div>
+        </div>
 
         <section className="intro-section section-pad reveal" id="o-nas">
           <div className="container intro-grid">
@@ -389,7 +400,7 @@ export default function Home() {
         <div className="container site-footer__grid">
           <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
           <div><span className="footer-label">KONTAKT</span><a className="footer-phone" href={PHONE_HREF}>{PHONE}</a><a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a><p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p></div>
-          <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#kontrola-vozu">Kontrola vozu</a><a href="#prodej">Prodej vozidel</a><a href="#dovoz">Dovoz vozidel</a><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
+          <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#o-nas">O nás</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button><a href="#kontakt">Kontakt</a><button className="footer-nav-button" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace</button><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
           <div><span className="footer-label">FIRMA</span><p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p></div>
         </div>
         <div className="container site-footer__bottom"><span>© 2026 K2 garage s.r.o.</span><span>Sídlo společnosti · dílna není na webu uvedena</span></div>
