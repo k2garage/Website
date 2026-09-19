@@ -1,4 +1,12 @@
-import { Instagram } from "lucide-react";
+import {
+  ArrowRight,
+  Clock3,
+  Facebook,
+  House,
+  Instagram,
+  Mail,
+  Phone,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const PHONE = "725 480 018";
@@ -18,32 +26,41 @@ export default function SiteFooter() {
           <a href="/" className="brand brand--footer" aria-label="K2 garage — úvod">
             <img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" />
           </a>
-          <p>Automobily, motocykly,<br />a pomoc před koupí.</p>
+          <p>
+            Poctivý autoservis pro automobily i motocykly. Pomůžeme s běžným servisem,
+            kontrolou vozu před koupí i výběrem a dovozem dalšího auta.
+          </p>
         </div>
-        <div>
-          <span className="footer-label">KONTAKT</span>
-          <a className="footer-phone" href={PHONE_HREF}>{PHONE}</a>
-          <a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a>
-          <p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p>
-        </div>
-        <div>
+
+        <nav className="site-footer__nav" aria-label="Navigace v patičce">
           <span className="footer-label">NAVIGACE</span>
           <a href="/sluzby">Služby</a>
           <a href="/#o-nas">O nás</a>
           <button className="footer-nav-button" type="button" onClick={showComingSoon}>Ceník</button>
           <a href="/#kontakt">Kontakt</a>
-          <a href="/rezervace">Rezervace</a>
-          <div className="footer-socials" aria-label="Sociální sítě">
-            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
-          </div>
-        </div>
-        <div>
-          <span className="footer-label">FIRMA</span>
-          <p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p>
+        </nav>
+
+        <address className="site-footer__contact">
+          <span className="footer-label">KONTAKT</span>
+          <a href={PHONE_HREF}><Phone size={16} strokeWidth={1.8} /><span>{PHONE}</span></a>
+          <a href="mailto:k2garage@seznam.cz"><Mail size={16} strokeWidth={1.8} /><span>k2garage@seznam.cz</span></a>
+          <p><House size={16} strokeWidth={1.8} /><span>Svépomoc III 2044/21<br />Přerov</span></p>
+          <p><Clock3 size={16} strokeWidth={1.8} /><span>Po–Pá 8:00–17:00<br />po telefonické domluvě</span></p>
+        </address>
+      </div>
+
+      <div className="container footer-actions">
+        <a className="footer-contact" href="/#kontakt"><Phone size={16} /> Kontaktovat</a>
+        <a className="footer-reservation" href="/rezervace">Rezervace <ArrowRight size={16} /></a>
+      </div>
+
+      <div className="container site-footer__bottom">
+        <span>© {new Date().getFullYear()} K2 garage s.r.o.</span>
+        <div className="footer-socials" aria-label="Sociální sítě">
+          <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Facebook size={17} /></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={17} /></a>
         </div>
       </div>
-      <div className="container site-footer__bottom"><span>K2 garage s.r.o.</span><span>Sídlo společnosti · dílna není na webu uvedena</span></div>
     </footer>
   );
 }
