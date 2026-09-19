@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type CSSProperties, type MouseEvent, useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -125,6 +125,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isBooting, setIsBooting] = useState(true);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsBooting(false), 900);
@@ -192,6 +193,14 @@ export default function Home() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const handleHeroPointerMove = (event: MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setParallax({
+      x: ((event.clientX - rect.left) / rect.width - 0.5) * 2,
+      y: ((event.clientY - rect.top) / rect.height - 0.5) * 2,
+    });
+  };
+
   return (
     <div className="site-shell">
       <div className={`page-loader ${isBooting ? "page-loader--active" : "page-loader--done"}`} aria-hidden={!isBooting}>
@@ -237,7 +246,7 @@ export default function Home() {
       </header>
 
       <main>
-        <section className="hero-carousel" aria-roledescription="carousel" aria-label="Hlavní nabídka K2 garage">
+        <section className="hero-carousel" onMouseMove={handleHeroPointerMove} onMouseLeave={() => setParallax({ x: 0, y: 0 })} aria-roledescription="carousel" aria-label="Hlavní nabídka K2 garage">
           <div className="hero-carousel__slides">
             {slides.map((item, index) => (
               <article
@@ -245,12 +254,20 @@ export default function Home() {
                 key={item.eyebrow}
                 aria-hidden={index !== activeSlide}
               >
-                <div className="hero-visual" aria-hidden="true">
+                <div className="hero-visual" style={{ "--parallax-x": `${parallax.x}px`, "--parallax-y": `${parallax.y}px` } as CSSProperties} aria-hidden="true">
                   <div className="hero-visual__grid" />
                   <span className="hero-visual__orb hero-visual__orb--one" />
                   <span className="hero-visual__orb hero-visual__orb--two" />
                   <span className="hero-visual__beam hero-visual__beam--one" />
                   <span className="hero-visual__beam hero-visual__beam--two" />
+                  <div className="hero-visual__car">
+                    <span className="hero-visual__windshield" />
+                    <span className="hero-visual__headlight hero-visual__headlight--one" />
+                    <span className="hero-visual__headlight hero-visual__headlight--two" />
+                    <span className="hero-visual__wheel hero-visual__wheel--one" />
+                    <span className="hero-visual__wheel hero-visual__wheel--two" />
+                  </div>
+                  <div className="hero-visual__diagnostic"><span>OBD / 02</span><i /><b>READY</b></div>
                   <span className="hero-visual__word">K2</span>
                   <span className="hero-visual__scanline" />
                 </div>
