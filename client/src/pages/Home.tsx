@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
+  ArrowUpRight,
   BadgeCheck,
   CarFront,
   ChevronLeft,
@@ -126,6 +127,7 @@ const importSteps = [
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -140,6 +142,8 @@ export default function Home() {
     let ticking = false;
     const updateHeader = () => {
       header.classList.toggle("site-header--scrolled", window.scrollY > 36);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0);
       ticking = false;
     };
     const onScroll = () => {
@@ -160,6 +164,24 @@ export default function Home() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const revealItems = document.querySelectorAll<HTMLElement>(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8%" });
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   const slide = slides[activeSlide];
 
   const goToSlide = (index: number) => {
@@ -170,6 +192,7 @@ export default function Home() {
 
   return (
     <div className="site-shell">
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} aria-hidden="true" />
       <header className="site-header" id="top">
         <div className="container site-header__inner">
           <a href="#top" className="brand" aria-label="K2 garage — úvod">
@@ -237,6 +260,7 @@ export default function Home() {
                     <span className="hero-slide__line" />
                     <span> Přerov · ČR</span>
                   </div>
+                  <div className="hero-slide__status"><span /> Po telefonické domluvě</div>
                 </div>
               </article>
             ))}
@@ -265,7 +289,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="intro-section section-pad" id="o-nas">
+        <section className="trust-strip reveal" aria-label="K2 garage v kostce">
+          <div className="container trust-strip__inner">
+            <div><strong>01</strong><span>Automobily i motocykly</span></div>
+            <div><strong>02</strong><span>Kontrola vozu před koupí</span></div>
+            <div><strong>03</strong><span>ČR a okolní země</span></div>
+            <a href={PHONE_HREF}>725 480 018 <ArrowUpRight size={16} /></a>
+          </div>
+        </section>
+
+        <section className="intro-section section-pad reveal" id="o-nas">
           <div className="container intro-grid">
             <div className="intro-copy">
               <span className="eyebrow">B03 / K2 garage</span>
@@ -282,7 +315,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="pre-purchase-section" id="kontrola-vozu">
+        <section className="pre-purchase-section reveal" id="kontrola-vozu">
           <div className="pre-purchase-section__media">
             <img src="/manus-storage/k2-hero-inspection_4be93f68.jpg" alt="Technik kontroluje automobil před koupí" />
             <span className="image-stamp">K2 / CHECK</span>
@@ -299,7 +332,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="services-section section-pad" id="sluzby">
+        <section className="services-section section-pad reveal" id="sluzby">
           <div className="container">
             <div className="section-heading section-heading--split">
               <div><span className="eyebrow">B05 / Co umíme</span><h2>Naše služby</h2></div>
@@ -308,7 +341,7 @@ export default function Home() {
             <div className="services-grid">
               {services.map((service) => {
                 const Icon = service.icon;
-                return <a href={service.title === "Kontrola vozu" ? "#kontrola-vozu" : "#kontakt"} className="service-card" key={service.number}>
+                return <a href={service.title === "Kontrola vozu" ? "#kontrola-vozu" : "#kontakt"} className="service-card reveal" key={service.number}>
                   <span className="service-card__number">{service.number}</span>
                   <span className="service-card__icon"><Icon size={23} strokeWidth={1.7} /></span>
                   <h3>{service.title}</h3>
@@ -320,7 +353,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="process-section section-pad">
+        <section className="process-section section-pad reveal">
           <div className="container">
             <div className="section-heading"><span className="eyebrow">B06 / Jednoduše</span><h2>Stačí zavolat a domluvíme se.</h2></div>
             <div className="process-grid">
@@ -330,14 +363,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="vehicle-sales-section section-pad" id="prodej">
+        <section className="vehicle-sales-section section-pad reveal" id="prodej">
           <div className="container vehicle-sales-grid">
             <div><span className="eyebrow">B07 / Prodej vozidel</span><h2>Nabídku připravujeme.</h2><p className="lead">Aktuálně nemáme v nabídce konkrétní vozidla. Jakmile budou vozy k dispozici, každý z nich bude mít vlastní stránku s fotografiemi, popisem a důležitými informacemi.</p><a className="button button--dark" href={PHONE_HREF}>Ptejte se na telefonu <Phone size={16} /></a></div>
             <div className="vehicle-placeholder"><div className="vehicle-placeholder__top"><span>COMING SOON</span><span>2026</span></div><div className="vehicle-placeholder__mark">K2</div><p>Každý vůz<br />s vlastním příběhem.</p><ArrowDownRight className="vehicle-placeholder__arrow" size={30} /></div>
           </div>
         </section>
 
-        <section className="vehicle-import-section section-pad" id="dovoz">
+        <section className="vehicle-import-section section-pad reveal" id="dovoz">
           <div className="container">
             <div className="section-heading section-heading--split"><div><span className="eyebrow eyebrow--accent">B08 / Dovoz vozidel</span><h2>Hledáte konkrétní auto?</h2></div><p>Pomůžeme s výběrem vozidla v ČR i okolních zemích. Vůz vyhledáme, prověříme a domluvíme další postup včetně dovozu.</p></div>
             <div className="import-steps">{importSteps.map((step, index) => <div className="import-step" key={step.number}><span className="import-step__number">{step.number}</span><div><h3>{step.title}</h3><p>{step.text}</p></div>{index < importSteps.length - 1 && <ArrowRight className="import-step__arrow" size={20} />}</div>)}</div>
@@ -345,7 +378,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="contact-cta-section" id="kontakt">
+        <section className="contact-cta-section reveal" id="kontakt">
           <div className="container contact-cta-section__inner"><div><span className="eyebrow eyebrow--accent">B09 / Kontakt</span><h2>Domluvme se na vašem voze.</h2><p>Potřebujete servis, kontrolu auta před koupí nebo radu s výběrem a dovozem vozidla? Zavolejte nám. První krok je jednoduchý.</p></div><a className="button button--accent button--large" href={PHONE_HREF}><Phone size={20} /> {PHONE}</a></div>
         </section>
       </main>
