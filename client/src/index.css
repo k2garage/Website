@@ -159,3 +159,16 @@
 .hero-visual__diagnostic{border:0;padding:0;background:transparent}.hero-visual__diagnostic .hero-visual__part-label{right:0;bottom:-1.55rem;transform:translateY(-4px)}.hero-visual__diagnostic:hover,.hero-visual__diagnostic:focus-visible{color:#fff;transform:translate(0,0) scale(1.04)}.hero-visual__diagnostic:hover .hero-visual__part-label,.hero-visual__diagnostic:focus-visible .hero-visual__part-label{opacity:1;transform:translateY(0)}
 @media(max-width:760px){.hero-visual__car button{pointer-events:none}.hero-visual__part-label{display:none}}
 @media(prefers-reduced-motion:reduce){.hero-visual__headlight,.hero-visual__wheel,.hero-visual__diagnostic{transition:none}}
+
+
+/* Clean hero controls: keep the two CTAs, remove auxiliary overlays, center arrows on both sides. */
+.hero-slide__meta,.hero-slide__status,.hero-carousel__dots,.hero-visual__diagnostic{display:none!important}
+.hero-carousel__controls{top:50%;right:0;bottom:auto;left:0;width:100%;max-width:none;padding-left:2rem;padding-right:2rem;transform:translateY(-50%);pointer-events:none}
+.hero-carousel__arrows{width:100%;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.hero-carousel__arrows button{pointer-events:auto;width:48px;height:48px;border-radius:50%;background:rgba(15,20,19,.48);backdrop-filter:blur(10px);transition:background 180ms ease,border-color 180ms ease,transform 180ms ease}
+.hero-carousel__arrows button:hover{transform:scale(1.08)}
+@media(max-width:760px){.hero-carousel__controls{top:50%;padding-left:1rem;padding-right:1rem}.hero-carousel__arrows{display:flex}.hero-carousel__arrows button{width:42px;height:42px}.hero-slide__content{padding-bottom:0}}
+
+@media(max-width:760px){.hero-carousel__controls{top:57%}}
+
+@media(max-width:760px){.hero-carousel__controls{top:66%}}
