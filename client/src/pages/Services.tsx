@@ -2,19 +2,22 @@ import FloatingActions from "@/components/FloatingActions";
 import { toast } from "sonner";
 import {
   ArrowDownRight,
-  ArrowLeft,
+  ArrowRight,
   BadgeCheck,
   CarFront,
   Check,
   Gauge,
+  Instagram,
   Mail,
+  Menu,
   Phone,
   SearchCheck,
   ShieldCheck,
   Sparkles,
   Wrench,
+  X,
 } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
@@ -62,6 +65,29 @@ const formServices = serviceGroups.map((group) => group.title);
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState(formServices[0]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateHeader = () => setIsScrolled(window.scrollY > 36);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
+  const showComingSoon = (page: string) => {
+    closeMenu();
+    toast(`${page} připravujeme`, {
+      description: "Samostatnou stránku doplníme v další fázi webu.",
+    });
+  };
 
   const selectService = (service: string) => {
     setSelectedService(service);
@@ -90,16 +116,35 @@ export default function Services() {
 
   return (
     <div className="services-page" id="top">
-      <header className="services-header">
-        <div className="container services-header__inner">
+      <header className={`site-header ${menuOpen ? "site-header--menu-open" : ""} ${isScrolled ? "site-header--scrolled" : ""}`}>
+        <div className="container site-header__inner">
           <a href="/" className="brand" aria-label="K2 garage — úvod">
             <img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" />
           </a>
-          <nav className="services-nav" aria-label="Navigace stránky Služby">
-            <a href="#prehled">Přehled úkonů</a>
-            <a href="#poptavka">Poptávka</a>
-            <a className="services-nav__phone" href={PHONE_HREF}><Phone size={15} /> {PHONE}</a>
+
+          <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
+            <a className="site-nav__link site-nav__link--active" href="/sluzby" onClick={closeMenu}>Služby</a>
+            <a className="site-nav__link" href="/#o-nas" onClick={closeMenu}>O nás</a>
+            <button className="site-nav__link" type="button" onClick={() => showComingSoon("Ceník")}>Ceník</button>
+            <a className="site-nav__link" href="/#kontakt" onClick={closeMenu}>Kontakt</a>
+            <button className="site-nav__link site-nav__reservation" type="button" onClick={() => showComingSoon("Rezervaci")}>Rezervace <ArrowRight size={15} /></button>
+            <div className="mobile-nav__extras">
+              <div className="mobile-nav__socials" aria-label="Sociální sítě">
+                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
+              </div>
+            </div>
           </nav>
+
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-label={menuOpen ? "Zavřít menu" : "Otevřít menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
       </header>
 
@@ -108,7 +153,6 @@ export default function Services() {
           <div className="services-hero__glow services-hero__glow--one" />
           <div className="services-hero__glow services-hero__glow--two" />
           <div className="container services-hero__inner">
-            <a className="back-link" href="/"><ArrowLeft size={17} /> Zpět na úvod</a>
             <p className="services-kicker">K2 garage · Přerov</p>
             <h1>Servisní úkony<br />bez zbytečných okolků.</h1>
             <p className="services-hero__lead">Vyberte oblast, která vás zajímá. Pokud si nejste jistí, zavolejte nám — společně probereme, co bude pro váš vůz nebo motorku nejlepší.</p>
