@@ -537,3 +537,8 @@ h1, h2, h3, .vehicle-placeholder__mark, .vehicle-placeholder p {
 
 /* Mobile footer bottom: copyright first, social links centered directly underneath. */
 @media(max-width:760px){.site-footer__bottom{flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding-right:1rem;text-align:center}.site-footer__bottom .footer-socials{justify-content:center}}
+
+
+/* Refined heading scale: calmer sections and a more breathable hero. */
+.hero-slide h1{font-size:clamp(3.25rem,5.8vw,5.9rem)}.intro-copy h2,.section-heading h2,.vehicle-sales-section h2,.contact-cta-section h2{font-size:clamp(2.65rem,4.25vw,4.55rem)}.pre-purchase-section__content h2{font-size:clamp(2.55rem,4.3vw,4.7rem)}.service-card h3,.process-step h3{font-size:1.48rem}.import-step h3{font-size:1.4rem}.services-hero h1{font-size:clamp(3.4rem,6.65vw,6.6rem)}.services-detail__heading h2,.request-section h2{font-size:clamp(2.9rem,4.7vw,5.2rem)}.service-detail-card h3{font-size:1.8rem}.service-callout h2{font-size:clamp(1.9rem,2.7vw,3.15rem)}.reservation-cta-section__inner h2{font-size:clamp(2.9rem,4.7vw,5.15rem)}.reservation-hero h1{font-size:clamp(3.4rem,6.65vw,6.5rem)}
+@media(max-width:760px){.hero-slide h1{font-size:clamp(2.8rem,13.2vw,4.35rem)}.intro-copy h2,.section-heading h2,.vehicle-sales-section h2,.contact-cta-section h2{font-size:clamp(2.75rem,12.5vw,4rem)}.pre-purchase-section__content h2{font-size:clamp(2.75rem,12.5vw,4rem)}.services-hero h1{font-size:clamp(3.1rem,14.2vw,4.85rem)}.services-detail__heading h2,.request-section h2{font-size:clamp(2.85rem,13.5vw,4.25rem)}.service-callout h2{font-size:clamp(2.2rem,10.5vw,3.2rem)}.reservation-cta-section__inner h2{font-size:clamp(2.75rem,13vw,4.2rem)}.reservation-hero h1{font-size:clamp(3.1rem,14.2vw,4.85rem)}}
