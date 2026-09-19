@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
-  ArrowUpRight,
   BadgeCheck,
   CarFront,
   ChevronLeft,
@@ -128,6 +127,18 @@ export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isBooting, setIsBooting] = useState(true);
+
+  useEffect(() => {
+    const preloaders = slides.map((item) => new Promise<void>((resolve) => {
+      const image = new Image();
+      image.onload = () => resolve();
+      image.onerror = () => resolve();
+      image.src = item.image;
+    }));
+    const minimumLoader = new Promise<void>((resolve) => window.setTimeout(resolve, 900));
+    Promise.all([Promise.all(preloaders), minimumLoader]).then(() => setIsBooting(false));
+  }, []);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -158,11 +169,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    document.body.style.overflow = menuOpen || isBooting ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuOpen]);
+  }, [menuOpen, isBooting]);
 
   useEffect(() => {
     const revealItems = document.querySelectorAll<HTMLElement>(".reveal");
@@ -192,8 +203,12 @@ export default function Home() {
 
   return (
     <div className="site-shell">
+      <div className={`page-loader ${isBooting ? "page-loader--active" : "page-loader--done"}`} aria-hidden={!isBooting}>
+        <div className="page-loader__mark"><img src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" /><span /></div>
+        <div className="page-loader__meta"><span>Načítáme váš servis</span><strong>K2 / 2026</strong></div>
+      </div>
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} aria-hidden="true" />
-      <header className="site-header" id="top">
+      <header className={`site-header ${menuOpen ? "site-header--menu-open" : ""}`} id="top">
         <div className="container site-header__inner">
           <a href="#top" className="brand" aria-label="K2 garage — úvod">
             <img className="brand__logo" src="/assets/K2-GARAGE-mlecna.webp" alt="K2 garage" />
@@ -286,15 +301,6 @@ export default function Home() {
               <button type="button" onClick={() => goToSlide(activeSlide - 1)} aria-label="Předchozí slide"><ChevronLeft size={19} /></button>
               <button type="button" onClick={() => goToSlide(activeSlide + 1)} aria-label="Další slide"><ChevronRight size={19} /></button>
             </div>
-          </div>
-        </section>
-
-        <section className="trust-strip reveal" aria-label="K2 garage v kostce">
-          <div className="container trust-strip__inner">
-            <div><strong>01</strong><span>Automobily i motocykly</span></div>
-            <div><strong>02</strong><span>Kontrola vozu před koupí</span></div>
-            <div><strong>03</strong><span>ČR a okolní země</span></div>
-            <a href={PHONE_HREF}>725 480 018 <ArrowUpRight size={16} /></a>
           </div>
         </section>
 
