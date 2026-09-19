@@ -9,6 +9,7 @@ import {
   CircleCheck,
   Clock3,
   Gauge,
+  Instagram,
   Menu,
   MoveUpRight,
   Phone,
@@ -152,6 +153,13 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const slide = slides[activeSlide];
 
   const goToSlide = (index: number) => {
@@ -174,6 +182,13 @@ export default function Home() {
             <a href="#prodej" onClick={closeMenu}>Prodej vozidel</a>
             <a href="#dovoz" onClick={closeMenu}>Dovoz vozidel</a>
             <a href="#kontakt" onClick={closeMenu}>Kontakt</a>
+            <div className="mobile-nav__extras">
+              <a className="mobile-nav__call" href={PHONE_HREF} onClick={closeMenu}><Phone size={18} /> Zavolat na {PHONE}</a>
+              <div className="mobile-nav__socials" aria-label="Sociální sítě">
+                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
+              </div>
+            </div>
           </nav>
 
           <a className="header-phone" href={PHONE_HREF}>
@@ -339,13 +354,12 @@ export default function Home() {
         <div className="container site-footer__grid">
           <div className="site-footer__brand"><a href="#top" className="brand brand--footer"><img className="brand__logo" src="/manus-storage/K2-GARAGE-mlecna_87e75db5.webp" alt="K2 garage" /></a><p>Automobily, motocykly,<br />a pomoc před koupí.</p></div>
           <div><span className="footer-label">KONTAKT</span><a className="footer-phone" href={PHONE_HREF}>{PHONE}</a><a href="mailto:k2garage@seznam.cz">k2garage@seznam.cz</a><p>Po–Pá 8:00–17:00<br />po telefonické domluvě</p></div>
-          <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#kontrola-vozu">Kontrola vozu</a><a href="#prodej">Prodej vozidel</a><a href="#dovoz">Dovoz vozidel</a></div>
+          <div><span className="footer-label">NAVIGACE</span><a href="#sluzby">Služby</a><a href="#kontrola-vozu">Kontrola vozu</a><a href="#prodej">Prodej vozidel</a><a href="#dovoz">Dovoz vozidel</a><div className="footer-socials" aria-label="Sociální sítě"><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={18} /></a></div></div>
           <div><span className="footer-label">FIRMA</span><p>K2 garage s.r.o.<br />IČO: 29956641<br />Svépomoc III 2044/21<br />Přerov</p></div>
         </div>
         <div className="container site-footer__bottom"><span>© 2026 K2 garage s.r.o.</span><span>Sídlo společnosti · dílna není na webu uvedena</span></div>
       </footer>
 
-      <a className="mobile-call-bar" href={PHONE_HREF}><Phone size={17} /> Zavolat na {PHONE}</a>
     </div>
   );
 }
