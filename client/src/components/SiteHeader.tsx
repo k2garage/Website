@@ -38,11 +38,13 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
         </a>
 
         <nav className={`site-nav ${menuOpen ? "site-nav--open" : ""}`} aria-label="Hlavní navigace">
-          <a className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</a>
-          <a className="site-nav__link" href="/#o-nas" onClick={closeMenu}>O nás</a>
-          <button className="site-nav__link" type="button" onClick={showComingSoon}>Ceník</button>
-          <a className="site-nav__link" href="/#kontakt" onClick={closeMenu}>Kontakt</a>
-          <a className="site-nav__link site-nav__reservation" href="/rezervace" onClick={closeMenu}>Rezervace <ArrowRight size={15} /></a>
+          <div className="site-nav__core">
+            <a className="site-nav__link" href="/sluzby" onClick={closeMenu}>Služby</a>
+            <a className="site-nav__link" href="/#o-nas" onClick={closeMenu}>O nás</a>
+            <button className="site-nav__link" type="button" onClick={showComingSoon}>Ceník</button>
+            <a className="site-nav__link" href="/#kontakt" onClick={closeMenu}>Kontakt</a>
+          </div>
+          <a className="site-nav__reservation site-nav__reservation--mobile" href="/rezervace" onClick={closeMenu}>Rezervace <ArrowRight size={15} /></a>
           <div className="mobile-nav__extras">
             <div className="mobile-nav__socials" aria-label="Sociální sítě">
               <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="social-fallback">f</span></a>
@@ -50,6 +52,8 @@ export default function SiteHeader({ lockPage = false }: SiteHeaderProps) {
             </div>
           </div>
         </nav>
+
+        <a className="header-reservation" href="/rezervace">Rezervace <ArrowRight size={15} /></a>
 
         <button
           className="menu-toggle"
