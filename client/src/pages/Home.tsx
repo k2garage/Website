@@ -133,6 +133,25 @@ export default function Home() {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!header) return;
+    let ticking = false;
+    const updateHeader = () => {
+      header.classList.toggle("site-header--scrolled", window.scrollY > 36);
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    };
+    updateHeader();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const slide = slides[activeSlide];
 
   const goToSlide = (index: number) => {

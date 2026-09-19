@@ -43,6 +43,7 @@
 }
 
 :root {
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
   --primary: #d9080c;
   --primary-foreground: #ffffff;
   --radius: 0.45rem;
@@ -105,8 +106,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .site-shell { overflow: clip; }
 .section-pad { padding: 7.5rem 0; }
 
-.site-header { position: absolute; z-index: 20; inset: 0 0 auto; color: #f8f4ec; border-bottom: 1px solid rgba(255,255,255,.17); }
-.site-header__inner { min-height: 86px; display: flex; align-items: center; gap: 2.3rem; }
+.site-header { position: fixed; z-index: 20; top: 0; left: 0; width: 100%; color: #f8f4ec; border-bottom: 1px solid rgba(255,255,255,.17); transition: top 260ms var(--ease-out), width 260ms var(--ease-out), transform 260ms var(--ease-out), border-radius 260ms ease, background 260ms ease, box-shadow 260ms ease, backdrop-filter 260ms ease; }
+.site-header--scrolled { top: 18px; left: 50%; width: min(80%, 1180px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(25,29,28,.84); box-shadow: 0 16px 38px rgba(0,0,0,.22); backdrop-filter: blur(16px); transform: translateX(-50%); }
+.site-header__inner { min-height: 86px; display: flex; align-items: center; gap: 2.3rem; transition: min-height 260ms var(--ease-out); }
+.site-header--scrolled .site-header__inner { min-height: 68px; }
 .brand { display: inline-flex; align-items: center; gap: .7rem; flex: 0 0 auto; }
 .brand__logo { display: block; width: 178px; height: auto; padding: 0; border-radius: 0; background: transparent; object-fit: contain; }
 .brand__text { display: grid; line-height: 1; gap: .28rem; }
@@ -269,13 +272,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 @media (max-width: 760px) {
   body { padding-bottom: 58px; }
   .container { padding-left: 1.1rem; padding-right: 1.1rem; }
-  .site-header { position: absolute; }
+  .site-header { position: fixed; }
+  .site-header--scrolled { top: 10px; width: calc(100% - 2rem); border-radius: 999px; }
   .site-header__inner { min-height: 74px; gap: .8rem; }
   .brand__logo { width: 137px; }
   .header-phone { margin-left: auto; padding: .65rem .25rem; }
   .header-phone span { display: none; }
   .menu-toggle { display: block; }
   .site-nav { position: absolute; top: 74px; right: 1.1rem; left: 1.1rem; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: .55rem; border: 1px solid rgba(255,255,255,.16); background: rgba(26,30,29,.97); box-shadow: 0 20px 35px rgba(0,0,0,.22); opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 160ms ease, transform 160ms ease; }
+  .site-header--scrolled .site-nav { top: 66px; }
   .site-nav--open { opacity: 1; pointer-events: auto; transform: translateY(0); }
   .site-nav a { padding: .85rem; border-bottom: 1px solid rgba(255,255,255,.1); font-size: .72rem; }
   .site-nav a:last-child { border-bottom: 0; }
