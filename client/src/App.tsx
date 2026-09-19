@@ -24,7 +24,8 @@ function Router() {
       <Route path={"/inzeraty"} component={Listings} />
       <Route path={"/rezervace"} component={Reservation} />
       <Route path={"/kontakt"} component={Contact} />
-      <Route path={"/dashboard/:section?"} component={Admin} />
+      <Route path={"/dashboard"} component={Admin} />
+      <Route path={"/dashboard/:section"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
