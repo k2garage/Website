@@ -172,3 +172,6 @@
 @media(max-width:760px){.hero-carousel__controls{top:57%}}
 
 @media(max-width:760px){.hero-carousel__controls{top:66%}}
+
+.hero-slide__content{margin-left:4rem}
+@media(max-width:760px){.hero-slide__content{margin-left:0}}
