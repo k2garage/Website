@@ -7,18 +7,12 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
-import { toast } from "sonner";
+import { Link } from "wouter";
 
 const PHONE = "725 480 018";
 const PHONE_HREF = "tel:+420725480018";
 
 export default function SiteFooter() {
-  const showComingSoon = () => {
-    toast("Ceník připravujeme", {
-      description: "Samostatnou stránku doplníme v další fázi webu.",
-    });
-  };
-
   return (
     <footer className="site-footer">
       <div className="container site-footer__grid">
@@ -34,10 +28,10 @@ export default function SiteFooter() {
 
         <nav className="site-footer__nav" aria-label="Navigace v patičce">
           <span className="footer-label">NAVIGACE</span>
-          <a href="/sluzby">Služby</a>
+          <Link href="/sluzby">Služby</Link>
           <a href="/#o-nas">O nás</a>
-          <button className="footer-nav-button" type="button" onClick={showComingSoon}>Ceník</button>
-          <a href="/kontakt">Kontakt</a>
+          <Link href="/cenik">Ceník</Link>
+          <Link href="/kontakt">Kontakt</Link>
         </nav>
 
         <address className="site-footer__contact">
@@ -50,8 +44,8 @@ export default function SiteFooter() {
       </div>
 
       <div className="container footer-actions">
-        <a className="footer-contact" href="/kontakt"><Phone size={16} /> Kontaktovat</a>
-        <a className="footer-reservation" href="/rezervace">Rezervace <ArrowRight size={16} /></a>
+        <Link className="footer-contact" href="/kontakt"><Phone size={16} /> Kontaktovat</Link>
+        <Link className="footer-reservation" href="/rezervace">Rezervace <ArrowRight size={16} /></Link>
       </div>
 
       <div className="container site-footer__bottom">
