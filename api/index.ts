@@ -1,56 +1,50 @@
 import type { ApiRequest, ApiResponse } from "./_lib/http";
-import contactHandler from "../server/api-routes/contact";
-import reservationHandler from "../server/api-routes/reservation";
-import loginHandler from "../server/api-routes/auth/login";
-import logoutHandler from "../server/api-routes/auth/logout";
-import sessionHandler from "../server/api-routes/auth/session";
-import publicCarsHandler from "../server/api-routes/public/cars";
-import publicPricingHandler from "../server/api-routes/public/pricing";
-import publicSettingsHandler from "../server/api-routes/public/settings";
-import publicTrafficHandler from "../server/api-routes/public/traffic";
-import adminBootstrapHandler from "../server/api-routes/admin/bootstrap";
-import adminPricingHandler from "../server/api-routes/admin/pricing";
-import adminSettingsHandler from "../server/api-routes/admin/settings";
-import adminUploadHandler from "../server/api-routes/admin/upload";
-import adminCarsHandler from "../server/api-routes/admin/cars/index";
-import adminCarHandler from "../server/api-routes/admin/cars/[id]";
-import adminMessagesHandler from "../server/api-routes/admin/messages/index";
-import adminMessageHandler from "../server/api-routes/admin/messages/[id]";
+import { json } from "./_lib/http";
 
 function pathOf(req: ApiRequest) {
   return (req.url ?? "").split("?")[0].replace(/\/+/g, "/").replace(/\/$/, "") || "/";
 }
 
-export default async function handler(req: ApiRequest, res: ApiResponse) {
-  const path = pathOf(req);
-  const query = { ...(req.query ?? {}) };
-  const match = (prefix: string) => path === prefix || path.startsWith(`${prefix}/`);
-  if (path === "/api/contact") return contactHandler(req, res);
-  if (path === "/api/reservation") return reservationHandler(req, res);
-  if (path === "/api/auth/login") return loginHandler(req, res);
-  if (path === "/api/auth/logout") return logoutHandler(req, res);
-  if (path === "/api/auth/session") return sessionHandler(req, res);
-  if (path === "/api/public/cars") return publicCarsHandler(req, res);
-  if (path === "/api/public/pricing") return publicPricingHandler(req, res);
-  if (path === "/api/public/settings") return publicSettingsHandler(req, res);
-  if (path === "/api/public/traffic") return publicTrafficHandler(req, res);
-  if (path === "/api/admin/bootstrap") return adminBootstrapHandler(req, res);
-  if (path === "/api/admin/pricing") return adminPricingHandler(req, res);
-  if (path === "/api/admin/settings") return adminSettingsHandler(req, res);
-  if (path === "/api/admin/upload") return adminUploadHandler(req, res);
-  if (path === "/api/admin/cars") return adminCarsHandler(req, res);
-  if (match("/api/admin/cars")) {
+type Handler = (req: ApiRequest, res: ApiResponse) => unknown | Promise<unknown>;
+
+async function handlerFor(path: string, query: Record<string, string | string[] | undefined>, req: ApiRequest): Promise<Handler | null> {
+  if (path === "/api/auth/session") return (await import("../server/api-routes/auth/session")).default;
+  if (path === "/api/auth/login") return (await import("../server/api-routes/auth/login")).default;
+  if (path === "/api/auth/logout") return (await import("../server/api-routes/auth/logout")).default;
+  if (path === "/api/contact") return (await import("../server/api-routes/contact")).default;
+  if (path === "/api/reservation") return (await import("../server/api-routes/reservation")).default;
+  if (path === "/api/public/cars") return (await import("../server/api-routes/public/cars")).default;
+  if (path === "/api/public/pricing") return (await import("../server/api-routes/public/pricing")).default;
+  if (path === "/api/public/settings") return (await import("../server/api-routes/public/settings")).default;
+  if (path === "/api/public/traffic") return (await import("../server/api-routes/public/traffic")).default;
+  if (path === "/api/admin/bootstrap") return (await import("../server/api-routes/admin/bootstrap")).default;
+  if (path === "/api/admin/pricing") return (await import("../server/api-routes/admin/pricing")).default;
+  if (path === "/api/admin/settings") return (await import("../server/api-routes/admin/settings")).default;
+  if (path === "/api/admin/upload") return (await import("../server/api-routes/admin/upload")).default;
+  if (path === "/api/admin/cars") return (await import("../server/api-routes/admin/cars/index")).default;
+  if (path.startsWith("/api/admin/cars/")) {
     query.id = path.slice("/api/admin/cars/".length);
     req.query = query;
-    return adminCarHandler(req, res);
+    return (await import("../server/api-routes/admin/cars/[id]")).default;
   }
-  if (path === "/api/admin/messages") return adminMessagesHandler(req, res);
-  if (match("/api/admin/messages")) {
+  if (path === "/api/admin/messages") return (await import("../server/api-routes/admin/messages/index")).default;
+  if (path.startsWith("/api/admin/messages/")) {
     query.id = path.slice("/api/admin/messages/".length);
     req.query = query;
-    return adminMessageHandler(req, res);
+    return (await import("../server/api-routes/admin/messages/[id]")).default;
   }
-  res.statusCode = 404;
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  return res.end(JSON.stringify({ error: "API route nebyla nalezena." }));
+  return null;
+}
+
+export default async function handler(req: ApiRequest, res: ApiResponse) {
+  try {
+    const path = pathOf(req);
+    const query = { ...(req.query ?? {}) };
+    const route = await handlerFor(path, query, req);
+    if (route) return await route(req, res);
+    return json(res, 404, { error: "API route nebyla nalezena." });
+  } catch (error) {
+    console.error("API handler failure", error);
+    return json(res, 500, { error: "Interní chyba API." });
+  }
 }
