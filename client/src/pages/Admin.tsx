@@ -232,7 +232,7 @@ function AdminApp({ mode, user, onExit }: { mode: AdminMode; user?: AuthUser; on
   useEffect(() => {
     if (mode !== "live") return;
     setLoading(true);
-    adminApi<AdminBootstrap>("/api/admin/bootstrap").then((bootstrap) => { setData(bootstrap); setLive(true); }).catch((error) => { setLive(false); toast.info(error instanceof AdminApiError ? "Serverové API je nedostupné – zobrazen ukázkový režim." : "Zobrazen ukázkový režim."); }).finally(() => setLoading(false));
+    adminApi<AdminBootstrap>("/api/admin/bootstrap").then((bootstrap) => { setData(bootstrap); setLive(true); }).catch((error) => { setLive(false); toast.error(error instanceof AdminApiError ? `Serverové API: ${error.message}` : "Serverové API je nedostupné."); }).finally(() => setLoading(false));
   }, [mode]);
   useEffect(() => { if (live) void fetch("/api/public/traffic", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pathname: location }) }); }, [live, location]);
   const logout = async () => { if (live) { try { await adminApi("/api/auth/logout", { method: "POST" }); } catch { /* end local state even if network has gone away */ } } onExit(); };
