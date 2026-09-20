@@ -1,3 +1,4 @@
+// Route dispatcher kept intentionally small so Vercel environment changes can redeploy safely.
 import type { ApiRequest, ApiResponse } from "./_lib/http";
 import { json } from "./_lib/http";
 
