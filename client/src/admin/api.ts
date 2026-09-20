@@ -20,8 +20,9 @@ export async function adminApi<T>(path: string, init?: RequestInit): Promise<T> 
 
   const body = await response.json().catch(() => null) as ApiResponse<T> | { error?: string; message?: string } | null;
   if (!response.ok) {
-    const message = body && "error" in body ? body.error : body && "message" in body ? body.message : "Požadavek se nepodařilo dokončit.";
-    throw new AdminApiError(message ?? "Požadavek se nepodařilo dokončit.", response.status);
+    const rawMessage = body && "error" in body ? body.error : body && "message" in body ? body.message : "Požadavek se nepodařilo dokončit.";
+    const message = typeof rawMessage === "string" ? rawMessage : rawMessage && typeof rawMessage === "object" ? JSON.stringify(rawMessage) : String(rawMessage ?? "Požadavek se nepodařilo dokončit.");
+    throw new AdminApiError(message, response.status);
   }
 
   return (body as ApiResponse<T>).data;
