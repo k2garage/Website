@@ -619,3 +619,8 @@ h1, h2, h3, .vehicle-placeholder__mark, .vehicle-placeholder p {
 .admin-shell main .text-amber-700, .admin-shell main .text-amber-800, .admin-shell main .text-amber-900 { color: #f1d889 !important; }
 .admin-shell main .border-amber-200 { border-color: #6b5b30 !important; }
 .admin-shell main table thead { background: #1b2020 !important; }
+.admin-shell .hover\:bg-white:hover { background: #3a4140 !important; color: #ffffff !important; }
+.admin-shell .hover\:bg-slate-50:hover, .admin-shell .hover\:bg-slate-100:hover { background: #303737 !important; color: #ffffff !important; }
+.admin-shell .hover\:text-slate-800:hover, .admin-shell .hover\:text-slate-900:hover { color: #ffffff !important; }
+.admin-shell .hover\:bg-red-50:hover { background: #4a2527 !important; }
+.admin-shell .group:hover { background: #303737 !important; }

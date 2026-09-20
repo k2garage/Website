@@ -27,6 +27,7 @@ async function handlerFor(path: string, query: Record<string, string | string[] 
     req.query = query;
     return (await import("../server/api-routes/admin/cars/[id]")).default;
   }
+  if (path === "/api/admin/messages/reply") return (await import("../server/api-routes/admin/messages/reply")).default;
   if (path === "/api/admin/messages") return (await import("../server/api-routes/admin/messages/index")).default;
   if (path.startsWith("/api/admin/messages/")) {
     query.id = path.slice("/api/admin/messages/".length);
