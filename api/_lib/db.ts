@@ -1,8 +1,8 @@
-import { neon } from "@neondatabase/serverless";
+import postgres from "postgres";
 import type { CarListing, ContactMessage, PricingTier, SiteSettings } from "../../shared/admin";
 
 const databaseUrl = process.env.DATABASE_URL;
-const sql = databaseUrl ? neon(databaseUrl) : null;
+const sql = databaseUrl ? postgres(databaseUrl, { max: 5, idle_timeout: 20, connect_timeout: 10, ssl: "require" }) : null;
 
 export class DatabaseNotConfiguredError extends Error {
   constructor() {
@@ -12,7 +12,7 @@ export class DatabaseNotConfiguredError extends Error {
 
 function database() {
   if (!sql) throw new DatabaseNotConfiguredError();
-  return sql;
+  return { query: (text: string, params: unknown[] = []) => sql.unsafe(text, params as never[]) };
 }
 
 const toIso = (value: unknown) => new Date(String(value)).toISOString();
