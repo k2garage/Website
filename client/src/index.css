@@ -592,3 +592,30 @@ h1, h2, h3, .vehicle-placeholder__mark, .vehicle-placeholder p {
 /* Keep the primary reservation action full-width on every screen size. */
 .reservation-form__submit{display:block}
 .reservation-form__submit .button{width:100%;justify-content:center}
+
+/* K2 garage Dashboard dark theme: shared with the branded login screen. */
+.admin-login { background: #171b1b; }
+.admin-login .text-slate-500 { color: #b8c1c1; }
+.admin-login .text-slate-700 { color: #e7eeee; }
+.admin-login input { background: #1b2020; border-color: #465050; color: #f7fbfb; }
+.admin-login input::placeholder { color: #8d9898; }
+.admin-login .border-amber-200 { border-color: #6b5b30; }
+.admin-login .bg-amber-50 { background: #302b1b; }
+.admin-login .text-amber-900, .admin-login .text-amber-800 { color: #f1d889; }
+.admin-login code { background: #3a3521; color: #f5dfa0; }
+.admin-shell { background: #171b1b !important; color: #f2f6f6; }
+.admin-shell header { background: rgba(35,39,39,.94) !important; border-color: #3c4646 !important; color: #f2f6f6; }
+.admin-shell header .text-slate-400, .admin-shell header .text-slate-500 { color: #aab6b6; }
+.admin-shell header .text-slate-700 { color: #edf3f3; }
+.admin-shell header button { color: #c8d1d1; border-color: #465050; }
+.admin-shell main .bg-white, .admin-shell main .bg-white\/90 { background: #232727 !important; color: #f2f6f6; }
+.admin-shell main .border-slate-200, .admin-shell main .border-slate-100 { border-color: #465050 !important; }
+.admin-shell main .text-slate-900, .admin-shell main .text-slate-800, .admin-shell main .text-slate-700 { color: #edf3f3 !important; }
+.admin-shell main .text-slate-600, .admin-shell main .text-slate-500, .admin-shell main .text-slate-400 { color: #aab6b6 !important; }
+.admin-shell main input, .admin-shell main textarea, .admin-shell main select { background: #1b2020 !important; border-color: #465050 !important; color: #f2f6f6 !important; }
+.admin-shell main input::placeholder, .admin-shell main textarea::placeholder { color: #879393; }
+.admin-shell main .bg-slate-50, .admin-shell main .bg-slate-100 { background: #1b2020 !important; }
+.admin-shell main .bg-amber-50 { background: #302b1b !important; }
+.admin-shell main .text-amber-700, .admin-shell main .text-amber-800, .admin-shell main .text-amber-900 { color: #f1d889 !important; }
+.admin-shell main .border-amber-200 { border-color: #6b5b30 !important; }
+.admin-shell main table thead { background: #1b2020 !important; }
